@@ -453,10 +453,25 @@
 
       .billing-item {
         display: flex;
+        flex-direction: column;
+        margin-bottom: 25px;
+      }
+
+      .group-billing-item {
+        display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 60px;
-        margin-bottom: 25px;
+      }
+
+      .group-billing-item div{
+        width: 100%;
+        display: flex;
+        gap: 2em;
+      }
+
+      .group-billing-item div *{
+        margin: 0;
+        color: #999;
       }
 
       .billing-food {
@@ -624,7 +639,7 @@
       }
 
       .acompanhamento {
-        overflow: scroll;
+        overflow-y: scroll;
       }
       .group-acompanhamento {
         padding: 1px;
@@ -678,8 +693,15 @@
       }
 
 
-      .quantidade-group{
+      .special-item .overlay.active{
+        display: block;
+      }
 
+      .quantidade-group #menos{
+        visibility: hidden;
+        width: 26px;
+        height: 26px;
+        font-weight: bold;
       }
 
       .quantidade-group #menos{
@@ -805,6 +827,7 @@
               <button
                 onclick="openModal(this)"
                 id="<%= produto.id %>"
+                data-name="<%= produto.nome %>"
                 data-price="<%= produto.preco.toFixed(2) %>"
                 class="button-select"
               >
@@ -818,7 +841,7 @@
                   </header>
                   <div class="acompanhamento">
                   <% produto.complementos.forEach((complemento) =>{ %>
-                    <div class="group-acompanhamento" data-min="<%= complemento.quantidade_min %>" data-max="<%= complemento.quantidade_max %>" data-count="0" >
+                    <div class="group-acompanhamento" data-min="<%= complemento.quantidade_min %>" data-max="<%= complemento.quantidade_max %>" data-count="0" data-obrigatorio="<%= complemento.obrigatorio %>" >
                       <div class="group-acompanhamento-header">
                         <div>
                           <h2><%= complemento.titulocomplemento %></h2>
@@ -834,7 +857,7 @@
                         </div>
                         <div class="quantidade-group">
                           <button type="button" id="menos" onclick="less(this)">-</button>
-                          <input type="text" name="num" id="num" data-min="<%= item.quantidade_min %>" data-max="<%= item.quantidade_max %>" value="0" data-price="<%= item.valor.toFixed(2) %>"/>
+                          <input type="text" name="num" id="num" data-name="<%= item.nome %>" data-iditem="<%= item.id %>" data-min="<%= item.quantidade_min %>" data-max="<%= item.quantidade_max %>" value="0"  data-price="<%= item.valor.toFixed(2) %>"/>
                           <button type="button" id="mais" onclick="more(this)">+</button>
                         </div>
                       </div>
@@ -845,12 +868,12 @@
                   <footer class="footer-modal">
                     <div class="group-footer-finish">
                       <div class="quantidade-group">
-                        <button type="button" id="menos" onclick="less(this)">-</button>
-                        <input type="text" name="num" id="num" data-min="0" data-max="5" value="0" data-price="0.00"/>
-                        <button type="button" id="mais" onclick="more(this)">+</button>
+                        <button type="button" id="menos" onclick="lessProduct(this)">-</button>
+                        <input type="text" name="num" id="num" class="qtd-product" data-min="1" data-max="<%= produto.quantidade_max %>" value="1"/>
+                        <button type="button" id="mais" onclick="moreProduct(this)">+</button>
                       </div>
                       <button onclick="addPedido(this)">
-                        Adicionar: R$ <span id="price"><%= produto.preco.toFixed(2) %></span>
+                        Adicionar: R$ <span data-initialprice="<%= produto.preco.toFixed(2) %>" data-priceunid="<%= produto.preco.toFixed(2) %>" id="price"><%= produto.preco.toFixed(2) %></span>
                       </button>
                     </div>
                     <textarea
@@ -878,7 +901,7 @@
           <div class="side-top">
             <div class="top-menu-right">
               <img src="./images/icons/shopping-cart.png" alt="user-img" />
-              <span>2</span>
+              <span id="countItensPedido">0</span>
             </div>
             <div class="my-order-wrapper">
               <h2>Meu Pedido 😎</h2>
@@ -931,45 +954,23 @@
             </div>
             <div class="billing-section">
               <div class="billing-item">
-                <img
-                  class="billing-food"
-                  src="http://localhost:3000/images/produtos/tgalinhaacabidelajpg.jpeg"
-                  alt="food-img"
-                />
-                <h3>1</h3>
-                <p>X</p>
+                <div class="group-billing-item">
+                  <img
+                    class="car-img"
+                    src="./images/icons/fast-delivery.png"
+                    alt="food-img"
+                  />
+                  <h3>1</h3>
+                  <p>X</p>
+                  <h3 class="dish-name">Entrega</h3>
 
-                <h3 class="dish-name">Galinha Cabidela</h3>
-                <span>$16.00</span>
-              </div>
-              <div class="billing-item">
-                <img
-                  class="billing-food"
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Flickr_-_cyclonebill_-_Pommes_frites_med_salatmayonnaise.jpg/220px-Flickr_-_cyclonebill_-_Pommes_frites_med_salatmayonnaise.jpg"
-                  alt="food-img"
-                />
-                <h3>2</h3>
-                <p>X</p>
-
-                <h3 class="dish-name">Isca de tilápia na farinha panko</h3>
-                <span>$18.00</span>
-              </div>
-              <div class="billing-item">
-                <img
-                  class="car-img"
-                  src="./images/icons/fast-delivery.png"
-                  alt="food-img"
-                />
-                <h3>1</h3>
-                <p>X</p>
-                <h3 class="dish-name">Entrega</h3>
-
-                <span>$4.00</span>
+                  <span>$4.00</span>
+                </div>
               </div>
             </div>
             <div class="total-amt">
               <p>Total:</p>
-              <h4>R$ 38.00</h4>
+              <h4>R$ <span id="valorTotal">0.00</span></h4>
             </div>
           </div>
 
@@ -1062,20 +1063,26 @@
     </script>
     <script>
 
-      const newItem = (id, price) => ({
+      let item;
+
+      const newProduct = (id, nome, price) => ({
         id: id,
+        nome: nome,
         quantidade: 1,
+        valor: 0.00,
         observacoes: "",
-        valor:price,
         complementos: [],
       });
 
-      const newComplemento = (id, value) => ({
+      const newComplemento = (id, nome) => ({
         id: id,
-        quantidade: null,
-        valor: null,
-        obrigatorio: true,
+        nome: nome,
+        quantidade: 1,
       })
+
+      const hasComplemento = (itemId) => {
+        return item.complementos.findIndex(item => item.id == itemId)
+      }
 
       const socket = io();
 
@@ -1084,26 +1091,116 @@
         console.log("Pedido recebido:", mensagem);
       });
 
-      let item;
 
       function openModal(e) {
-        e.nextElementSibling.style.display = "block";
+        console.log(e);
+
+        const modal = e.nextElementSibling
+
+        modal.classList.add("active");
+
+        buttonPrice =  modal.querySelector('.group-footer-finish #price');
+
+        buttonPrice.dataset.priceunid = e.dataset.price;
+        buttonPrice.innerHTML = e.dataset.price;
         
-        item = newItem(parseInt(e.id), parseFloat(e.dataset.price));
-        
+        item = newProduct(parseInt(e.id), e.dataset.name, parseFloat(e.dataset.price));
+
+        modal.querySelectorAll(".group-acompanhamento").forEach(gpa => gpa.dataset.count = 0)
+
+        const inputs = modal.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+          inputs[i].value = 0;
+          console.log(inputs[i], inputs.length-1)
+          if(i == (inputs.length-1)){
+            inputs[i].value = 1;
+          }
+        }
+
+        const mais = modal.querySelectorAll('.item-acompanhamento #mais');
+        const menos = modal.querySelectorAll('.item-acompanhamento #menos');
+
+        menos.forEach(m => m.style.visibility = "hidden");
+        mais.forEach(m => m.style.visibility = "visible");
+
       }
+
       function closeModal(e) {
-        e.parentNode.parentNode.parentNode.style.display = "none";
-        // e.parentNode.style.display = "none";
-        // pedido.push(parseInt(e.id));
-        // socket.emit("pedido", pedido);
+        e.parentNode.parentNode.parentNode.classList.remove("active");
       }
 
       function addPedido(e) {
-        const buttonFinish = e.parentNode.parentNode.parentNode.parentNode;
-        buttonFinish.style.display = "none";
+        required = false;
+        const modal = e.parentNode.parentNode.parentNode.parentNode;
+        const requiredItems = modal.querySelectorAll('[data-obrigatorio=true]');
+
+        requiredItems.forEach(itemRequired => {
+          
+          if(parseInt(itemRequired.dataset.count) < parseInt(itemRequired.dataset.min)){
+            required = true;
+            return
+          }
+        })
+
         
-        console.log(e.children.price.innerHTML);
+        if(required){
+          alert(`Item Obrigatório precisa ser selecionado`)
+          return
+        }
+
+        pedido.valorTotal += item.valor;
+
+        pedido.produtos.push(item)
+
+        modal.classList.remove("active");
+
+        refreshPedidoList();
+        
+      }
+
+      function refreshPedidoList() {
+        const listPedidos = document.querySelector(".billing-section");
+
+        const valorTotal = document.getElementById("valorTotal");
+        valorTotal.innerHTML = pedido.valorTotal.toFixed(2);
+
+        const countItensPedidos = document.getElementById("countItensPedido");
+        countItensPedidos.innerHTML = pedido.produtos.length;
+
+        console.log(pedido);
+
+        const itensPedido = pedido.produtos.map(produto => {
+
+          const itensPedido = produto.complementos.map(item => `
+            <div class="group-billing-item">
+                <div>
+                  <h3>Adic.</h3>
+                  <h3>${item.quantidade}</h3>
+                  <p>X</p>
+                  <h3>${item.nome}</h3>
+                </div>
+              </div>
+            `).join("")
+
+          const item = `
+            <div class="billing-item">
+              <div class="group-billing-item">
+                <h3>${produto.quantidade}</h3>
+                <p>X</p>
+
+                <h3 class="dish-name">${produto.nome}</h3>
+                <span>${produto.valor.toFixed(2)}</span>
+              </div>
+              ${itensPedido}
+            </div>`;
+            return item;
+        }).join("")
+
+        listPedidos.innerHTML = "";
+        listPedidos.insertAdjacentHTML("beforeend", itensPedido)
+      }
+
+      function finalizarPedido() {
         // e.parentNode.style.display = "none";
         // pedido.push(parseInt(e.id));
         // socket.emit("pedido", pedido);
@@ -1119,20 +1216,6 @@
           whatsapp: "819843198706",
         },
         produtos: [
-          {
-            id: 1,
-            quantidade: 1,
-            observacoes: "sem catchup pfvr",
-            valor: 20.00,
-            complementos: [
-              {
-                id: 1,
-                quantidade: 1,
-                valor: null,
-                obrigatorio: true,
-              },
-            ],
-          },
         ],
         entrega: {
           Endereço: "Rua cambuca , 58 a - Areias / Recife",
@@ -1142,6 +1225,8 @@
           pontoReferencia: "perto do posto ipiranga",
         },
       };
+
+    
     </script>
     <!-- Menos e Mais -->
     <script>
@@ -1154,9 +1239,51 @@
         setValue("mais", e);
       }
 
+      function lessProduct(e) {
+        setValueProduct("menos", e);
+      }
+
+      function moreProduct(e) {
+        setValueProduct("mais", e);
+      }
+
+
+
+      function setValueProduct(operacao, element) {
+        const buttonAdicionar = element.parentNode.nextElementSibling.querySelector("#price");
+        let priceProduct = parseFloat(buttonAdicionar.innerHTML);
+        let priceunid = parseFloat(buttonAdicionar.dataset.priceunid)
+
+
+        let inputItem = element.parentNode.children.num;
+        
+        let min = parseInt(inputItem.dataset.min);
+        let max = parseInt(inputItem.dataset.max);
+        let numero = parseInt(inputItem.value);
+        
+        numero = operacao == "mais" ? numero+1 : numero-1;
+        priceProduct = operacao == "mais" ? priceProduct*numero : priceProduct/(numero+1);
+
+        var menos = element.parentNode.children.menos;
+        var mais = element.parentNode.children.mais;
+
+        (numero <= min) ? menos.style.visibility = "hidden" : menos.style.visibility = "visible";
+        (numero >= max) ? mais.style.visibility = "hidden" : mais.style.visibility = "visible";
+        
+        item.quantidade = numero;
+        
+
+        inputItem.value = numero;
+        buttonAdicionar.innerHTML = (numero * buttonAdicionar.dataset.priceunid).toFixed(2);
+        item.valor = numero * buttonAdicionar.dataset.priceunid;
+      }
+
       function setValue(operacao, element) {
+        const qtdProducts = element.parentNode.parentNode.parentNode.parentNode.nextElementSibling.querySelector(".qtd-product");
+
         const buttonAdicionar = element.parentNode.parentNode.parentNode.parentNode.nextElementSibling.querySelector("#price");
-        let priceProduct = parseFloat(buttonAdicionar.innerHTML)
+        let priceunid = parseFloat(buttonAdicionar.dataset.priceunid)
+        let priceProduct = priceunid;
         
         let groupItens = element.parentNode.parentNode.parentNode;
         let countItems = parseInt(groupItens.dataset.count);
@@ -1165,6 +1292,8 @@
         maisTodos = groupItens.querySelectorAll('.item-acompanhamento #mais')
 
         let inputItem = element.parentNode.children.num;
+        let iditem = parseInt(inputItem.dataset.iditem);
+        let nameItem = inputItem.dataset.name;
         let min = parseInt(inputItem.dataset.min);
         let max = parseInt(inputItem.dataset.max);
         let price = parseFloat(inputItem.dataset.price);
@@ -1186,14 +1315,27 @@
           maisTodos.forEach(m => m.style.visibility = "visible");
         }
 
-        console.log(numero)
-        console.log(countItems)
-        console.log(item.valor = priceProduct)
-        console.log(item)
+        console.log("Complemento existe?",hasComplemento(iditem))
+
+        const itemIndex = hasComplemento(iditem);
+
+        if(hasComplemento(iditem) == -1){
+          item.complementos.push(newComplemento(iditem, nameItem))
+        }else{
+          if(numero == 0){
+            item.complementos.splice(itemIndex, 1);
+          }else{
+            item.complementos[itemIndex].quantidade = numero;
+          }
+        }
+
+        
 
         inputItem.value = numero;
         groupItens.dataset.count = countItems;
-        buttonAdicionar.innerHTML = priceProduct.toFixed(2)
+        buttonAdicionar.dataset.priceunid = priceProduct.toFixed(2);
+        buttonAdicionar.innerHTML = (qtdProducts.value * buttonAdicionar.dataset.priceunid).toFixed(2);
+        item.valor = qtdProducts.value * buttonAdicionar.dataset.priceunid
       }
 
     </script>
