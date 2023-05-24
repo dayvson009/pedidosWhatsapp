@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sistema de Pedidos</title>
+    <title>Menu de Almoço</title>
+    <style>
+
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      text-align: left;
+    }
+      table {
+        border-collapse: collapse;
+      }
+      th {
+        text-align: inherit;
+      }
+      .container{
+        max-width: 100%;
+        width: 100%;
+      }
+      .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+      }
+      .table{
+        width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+      }
+      .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+      }
+      .table td, .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+      }
+      .table td, .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+      }
+      .table tbody tr{
+        cursor: pointer;
+      }
+      .table tbody tr:hover{
+        background-color: #dee2e6;
+      }
+      .table button{
+        cursor: pointer;
+        background-color: #ff5831;
+        color: #fff;
+        padding: 7px 10px;
+        border: none;
+        margin: 0 5px;
+      }
+      .table button.aprove{
+        background-color: #10c461;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Painel de Pedidos</h1>
+
+    <!-- Container -->
+    <div class="container">
+      <!-- Main Content-->
+      <div class="masthead">
+        <input type="text" id="buscar" onkeyup="buscar()" placeholder="Buscar por pedido / nome / telefone" title="Procurar por nome" />
+
+        <div class="table-responsive">
+          <table class="table" id="tabla" data-sort="table">
+            <thead>
+              <tr>
+                Cod. Pedido - Nome - Telefone - Total - F. de Pagamento - Troco
+                Para - Troco - Status - Imprimir
+                <th>Cod. Pedido</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>F. Pagamento</th>
+                <th>Total</th>
+                <th>Troco para</th>
+                <th>Troco</th>
+                <th>Status</th>
+                <th>Imprimir</th>
+                <th>Aprovação do Pedido</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#201</td>
+                <td>Dayvson Vinícius</td>
+                <td>81 984319706</td>
+                <td>Dinheiro</td>
+                <td>R$ 30.00</td>
+                <td>R$ 50.00</td>
+                <td>R$ 20.00</td>
+                <td>Novo</td>
+                <td><img src="/images/icons/impressora.png" alt="" /></td>
+                <td><button class="aprove">Aprovar</button><button>Desaprovar</button></td>
+              </tr>
+              <tr>
+                <td>#202</td>
+                <td>Renata Lima</td>
+                <td>81 991306405</td>
+                <td>Pix</td>
+                <td>R$ 30.00</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Preparando</td>
+                <td><img src="/images/icons/impressora.png" alt="" /></td>
+                <td><button class="aprove">Aprovar</button><button>Desaprovar</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /container -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const apreparar = [];
+
+      const socket = io();
+
+      // Manipulador de evento para receber o pedido confirmado
+      socket.on("pedidoRecebido", (pedidos) => {
+        console.log("Pedido recebido:", pedidos);
+
+        pedidos.forEach((pedido) => {
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `<div>ITEM ${pedido} <button id="${pedido}" onclick="preparar(this)">Preparar</button></div>`
+          );
+        });
+      });
+
+      // Enviar pra preparo
+      function preparar(e) {
+        apreparar.push(parseInt(e.id));
+        socket.emit("preparar", apreparar);
+      }
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      function buscar() {
+        var filtro = $("#buscar").val().toUpperCase();
+
+        $("#tabla td").each(function () {
+          var textoEnTd = $(this).text().toUpperCase();
+          if (textoEnTd.indexOf(filtro) >= 0) {
+            $(this).addClass("existe");
+          } else {
+            $(this).removeClass("existe");
+          }
+        });
+
+        $("#tabla tbody tr").each(function () {
+          if ($(this).children(".existe").length > 0) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

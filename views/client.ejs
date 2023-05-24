@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sistema de Pedidos</title>
+    <title>Menu de Almoço</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .prato {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .prato img {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+      }
+
+      body {
+        margin: 0;
+        background-clip: #ffffff;
+      }
+
+      main {
+        display: flex;
+      }
+
+      #page-content {
+        padding: 20px 80px 30px 60px;
+        width: calc (68% - 140px);
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: #fff;
+      }
+
+      nav img {
+        width: 15px;
+      }
+
+      .menu-item {
+        width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .humberg-icon {
+        color: #6a6a6a;
+        cursor: pointer;
+      }
+
+      .menu-item span {
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .search-bar {
+        position: relative;
+      }
+
+      .search-bar > input {
+        width: 100%;
+        padding: 15px 50px;
+        border: 0;
+        border-radius: 24px;
+        font-size: 15.5px;
+        background-color: #f8f8f7;
+      }
+
+      .search-bar > input:focus {
+        outline: 1px solid #73ff7b;
+      }
+
+      input::placeholder {
+        color: #bfbfbf;
+      }
+
+      .search-img {
+        position: absolute;
+        left: 20px;
+        top: 0;
+        cursor: pointer;
+        color: #6a6a6a;
+        bottom: 0;
+        margin: auto;
+        max-height: 15px;
+      }
+
+      .delivery-detail {
+        background-color: #fff7ed;
+        box-shadow: 0 2px 4px #fff7ed;
+        border: 1px solid #fff7ed;
+        margin: 0 auto;
+        margin-top: 80px;
+        border-radius: 20px;
+        width: 100%;
+        padding-top: 10px;
+        padding-right: 5px;
+      }
+
+      .delivery-d-flex {
+        display: flex;
+        align-items: center;
+        height: 200px;
+        position: relative;
+      }
+
+      .landing-container {
+        width: 35%;
+        margin-bottom: 0;
+        position: absolute;
+        bottom: 25px;
+        height: 220px;
+      }
+
+      .landing-container img {
+        width: 100%;
+      }
+
+      .delivery-text {
+        margin-left: 320px;
+        margin-right: 40px;
+      }
+
+      .delivery-text h3 {
+        display: inline-block;
+        margin-bottom: 0;
+        color: #fb7b4c;
+        font-size: 21px;
+        font-weight: 600;
+        margin-right: 18px;
+      }
+
+      .delivery-text div {
+        font-size: 11px;
+        color: #c5c0b7;
+      }
+
+      .delivery-text div {
+        width: 300px;
+      }
+
+      .delivery-text img {
+        width: 25px;
+      }
+
+      .learn-more {
+        display: flex;
+        align-items: center;
+        margin-top: 100px;
+        cursor: pointer;
+      }
+
+      .learn-more p {
+        display: inline-block;
+        color: #fb7b4c;
+        font-size: 12px;
+        font-weight: 600;
+        padding-right: 10px;
+      }
+
+      .learn-more i {
+        width: 15px;
+        color: #fb7b4c;
+      }
+
+      .heading-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .resto-heading {
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .resto-heading h1 {
+        margin-right: 15px;
+        font-weight: 600;
+      }
+
+      .resto-heading h1::first-letter {
+        font-size: 26px;
+      }
+
+      .burger-img {
+        width: 25px;
+      }
+
+      .btn {
+        display: flex;
+        justify-content: space-around;
+        background-color: #fb6d3a;
+        border: 0;
+        outline: 0;
+        color: white;
+        border-radius: 24px;
+        width: 160px;
+        padding: 14px 16px;
+        cursor: pointer;
+      }
+
+      button span {
+        font-weight: 600;
+      }
+
+      .food-all-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 10px;
+        border-radius: 24px;
+        margin-bottom: 40px;
+      }
+
+      .food-menu-grid {
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        background-color: #e7e8e8;
+        padding: 15px 10px;
+        border-radius: 24px;
+        box-shadow: 0 0px 20px #d0d0d0;
+        width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .food-menu {
+        text-align: center;
+        padding: 10px 20px;
+        border-radius: 100px;
+        margin: 5px;
+        background-color: #ffffff;
+        border: 2px solid #fff;
+        cursor: pointer;
+      }
+
+      .food-menu.active {
+        background-color: #fcd561;
+      }
+
+      .food-menu a {
+        font-size: 12px;
+        text-decoration: none;
+        color: inherit;
+        margin: 0;
+      }
+
+      .food-menu a:hover {
+        color: #ff9e21;
+      }
+
+      .button-select {
+        width: 100%;
+        background-color: #ff9e21;
+        border: none;
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .special-menu-grid {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 60px;
+      }
+
+      .special-item {
+        width: calc(33% - 2%);
+        margin-right: 2%;
+        margin-bottom: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .thumbnil {
+        position: relative;
+        margin-bottom: 12px;
+      }
+
+      .thumbnil img {
+        width: 100%;
+        height: 160px;
+        border-radius: 36px;
+      }
+
+      .price {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        bottom: 6px;
+        left: 0;
+        font-size: 18px;
+        text-align: center;
+        font-weight: 600;
+        border-top-right-radius: 24px;
+        padding: 10px 12px;
+        background-color: #73ff7b;
+      }
+
+      .special-item p {
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .special-item-desc {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .special-item-desc img {
+        width: 16px;
+      }
+
+      .special-item-desc p {
+        font-size: 15px;
+        font-weight: 500;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .grey-text {
+        display: flex;
+        color: #9e9e9e;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .right-section {
+        padding-top: 20px;
+        padding-bottom: 30px;
+        padding-left: 50px;
+        width: 100%;
+        background-color: #f7fafc;
+        border: 1px solid #f1f1e9;
+        box-shadow: 0 2px 5px #f1f1e9;
+        border-radius: 15px;
+      }
+
+      .side-top {
+        margin-right: 70px;
+      }
+
+      .top-menu-right {
+        margin-left: 200px;
+        display: flex;
+        align-items: center;
+      }
+
+      .top-menu-right img {
+        width: 18px;
+        margin-right: 20px;
+        cursor: pointer;
+      }
+
+      .top-menu-right span {
+        font-weight: bold;
+        background-color: #fcd561;
+        padding: 10px 16px;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      .my-order-wrapper h2 {
+        font-weight: 500;
+        margin-bottom: 0;
+        font-size: 1.25rem;
+      }
+
+      .my-order-wrapper div {
+        font-weight: 600;
+        font-size: 24px;
+      }
+
+      .my-order-wrapper div::first-letter {
+        font-size: 27px;
+      }
+
+      .my-order-wrapper h2::first-letter {
+        font-size: 26px;
+      }
+
+      .my-order-wrapper img {
+        width: 25px;
+        margin-left: 5px;
+      }
+
+      .blue-box {
+        background-color: #503e9d;
+        color: #f4f4f9;
+        padding: 20px 25px;
+        border-radius: 24px;
+        margin-top: 30px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .blue-box span {
+        color: #edc866;
+      }
+
+      .line-1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .line-2 {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .line-2 i {
+        font-size: 18px;
+        color: #edc866;
+        background-color: #604c96;
+        padding: 8px;
+        border-radius: 10px;
+      }
+
+      .line-2 p {
+        margin-left: 10px;
+        margin-right: 22px;
+      }
+
+      .billing-section {
+        margin-top: 30px;
+      }
+
+      .billing-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        margin-bottom: 25px;
+      }
+
+      .billing-food {
+        width: 55px;
+        height: 55px;
+        border-radius: 10px;
+        margin-right: 5px;
+      }
+
+      .car-img {
+        width: 55px;
+        background-color: #fcd561;
+        padding: 10px;
+        border-radius: 10px;
+      }
+
+      .billing-item h3 {
+        font-weight: 600;
+        font-size: 12px;
+      }
+
+      .billing-item p {
+        font-weight: 600;
+        font-size: 11px;
+      }
+
+      .billing-item span {
+        color: #c1c1c0;
+        font-size: 14px;
+      }
+
+      .dish-name {
+        width: 100px;
+      }
+
+      .total-amt {
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .total-amt p {
+        font-weight: 500;
+      }
+
+      .total-amt h4 {
+        font-size: 24px;
+      }
+
+      .horizonal-line {
+        border-bottom: 2px solid #e4e4e3;
+        margin-right: 0;
+        padding-left: 0;
+      }
+
+      .checkout-section {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+
+      .person p {
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .number {
+        padding: 8px 25px;
+        border: 2px solid #eaeae8;
+        background-color: #fbfbf9;
+        border-radius: 15px;
+        font-size: 18px;
+      }
+
+      .ch {
+        display: flex;
+        align-items: center;
+        background-color: #fcd561;
+        padding: 0px 0 0px 40px;
+        margin-top: 20px;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        width: 65%;
+        cursor: pointer;
+        margin-left: auto;
+      }
+
+      .ch p {
+        margin-right: 30px;
+        font-weight: 500;
+      }
+
+
+
+
+
+      .overlay {
+        position: fixed;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, .5);
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        display: none;
+      }
+
+      .modal {
+        width: 99%;
+        position: relative;
+        background-color: #fff;
+        max-width: 500px;
+        margin: auto;
+        height: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 10px;
+      }
+
+      .modal header {
+        display: flex;
+        color: #ff6c00;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        box-shadow: 0 9px 18px -18px #000;
+      }
+
+      .modal header button {
+        margin-right: 20px;
+        background: #ffa4a4;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 12px 5px 10px;
+        cursor: pointer;
+      }
+
+      .modal header button img{
+        height: 15px;
+      }
+
+      .modal header h2{
+        margin: 0;
+        color: #ff6c00;
+      }
+
+      .footer-modal {
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+        box-shadow: 0 -9px 18px -18px #000;
+      }
+
+      .footer-modal .group-footer-finish {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .footer-modal #observacoes {
+        height: 80px;
+        margin-top: 10px;
+      }
+
+      .acompanhamento {
+        overflow: scroll;
+      }
+      .group-acompanhamento {
+        padding: 1px;
+      }
+
+      .group-acompanhamento-header {
+        display: flex;
+        background: #eee;
+        padding: 10px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .group-acompanhamento-header h2{
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      .group-acompanhamento-header p{
+        color: #2d2d2d;
+        font-size: 13px;
+        margin: 0;
+      }
+
+      .group-acompanhamento-header span{
+        font-size: 11px;
+        background-color: #69b000;
+        padding: 5px;
+        border-radius: 5px;
+        color: #fff;
+      }
+
+      .item-acompanhamento {
+        display: flex;
+        border-bottom: 1px solid #dfdfdf;
+        justify-content: space-between;
+        padding: 15px 15px 15px 0;
+        align-items: center;
+      }
+
+      .item-acompanhamento .nome-item {
+        margin: 0;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .item-acompanhamento .nome-item small{
+        color: green;
+        display: block;
+      }
+
+
+      .quantidade-group{
+
+      }
+
+      .quantidade-group #menos{
+        visibility: hidden;
+        width: 26px;
+        height: 26px;
+        font-weight: bold;
+      }
+
+      .quantidade-group #mais{
+        width: 26px;
+        height: 26px;
+        font-weight: bold;
+      }
+
+      .quantidade-group #num {
+        width: 50px;
+        text-align: center;
+        background: transparent;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>Sistema de Pedidos</h1>
+
+    <main>
+      <div id="page-content">
+        <nav>
+          <div class="menu-item">
+            <img src="./images/icons/menu.png" alt="menu-img" />
+            <span>Pedidos</span>
+          </div>
+        </nav>
+        <section class="delivery-detail">
+          <div class="delivery-d-flex">
+            <div class="landing-container">
+              <img src="./images/almoco.png" alt="boy-img" />
+            </div>
+            <div class="delivery-text">
+              <div>
+                <h3><%= empresa.nomeEmpresa %> 🎉</h3>
+              </div>
+              <div>📞 <%= empresa.contato %></div>
+            </div>
+            <div class="learn-more">
+              <p>Saiba mais</p>
+              <img src="./images/icons/right-arrow.png" alt="" />
+            </div>
+          </div>
+        </section>
+        <section class="resto-menu-section">
+          <div class="heading-flex">
+            <div class="resto-heading">
+              <h1>Realize seu pedido</h1>
+            </div>
+            <button class="btn">
+              <img
+                src="./images/icons/time.png"
+                alt=""
+                style="width: 16px; height: 16px; margin-top: 2px"
+              />
+              Delivery: <span>Now</span>
+              <img src="./images/icons/down-arrow.png" alt="" />
+            </button>
+          </div>
+          <div class="food-all-wrapper">
+            <div class="food-menu-grid">
+              <% categorias.sort(function (a, b) { return a.order - b.order; });
+              categorias.forEach(function(categoria){ %>
+              <div class="food-menu">
+                <a href="#categoria<%= categoria.id %>"
+                  ><%= categoria.titulo %></a
+                >
+              </div>
+              <% }); %>
+            </div>
+          </div>
+        </section>
+        <div class="search-bar">
+          <img
+            class="search-img"
+            src="./images/icons/search-icon.png"
+            alt="search-img"
+          />
+          <input
+            type="search"
+            placeholder="Procurar"
+            name="search"
+            id="buscar"
+            onkeyup="buscar()"
+          />
+        </div>
+        <section>
+          <% categorias.forEach((categoria) =>{ %>
+          <h3 class="category" id="categoria<%= categoria.id %>">
+            <%= categoria.titulo %>
+          </h3>
+          <div class="special-menu-grid">
+            <% produtos.filter(function(produto,index){ if(produto.categoria ==
+            categoria.id) { %>
+
+            <div class="special-item" data-categoria="<%= produto.categoria %>">
+              <div class="thumbnil">
+                <!-- <img
+                  src="https://source.unsplash.com/270x160/?food/<%= index %>"
+                  alt=""
+                /> -->
+                <img src="./images/produtos/<%= produto.imagem %>" alt="" />
+                <div class="price">R$ <%= produto.preco.toFixed(2) %></div>
+              </div>
+              <p class="name-product"><%= produto.nome %></p>
+              <div class="special-item-desc">
+                <img src="./images/icons/star.png" alt="" />
+                <p>4.7</p>
+                <div class="grey-text">
+                  <p><%= produto.descricao %></p>
+                </div>
+              </div>
+              <button
+                onclick="openModal(this)"
+                id="<%= produto.id %>"
+                data-price="<%= produto.preco.toFixed(2) %>"
+                class="button-select"
+              >
+                Escolher
+              </button>
+              <div class="overlay">
+                <div class="modal">
+                  <header>
+                    <button class="return" onclick="closeModal(this)"><img src="./images/icons/seta-esquerda.png"></button>
+                    <h2><%= produto.nome %></h2>
+                  </header>
+                  <div class="acompanhamento">
+                  <% produto.complementos.forEach((complemento) =>{ %>
+                    <div class="group-acompanhamento" data-min="<%= complemento.quantidade_min %>" data-max="<%= complemento.quantidade_max %>" data-count="0" >
+                      <div class="group-acompanhamento-header">
+                        <div>
+                          <h2><%= complemento.titulocomplemento %></h2>
+                          <p>Escolha até <%= complemento.quantidade_max %> Opções</p>
+                        </div>obrigatorio
+                        <span><%= complemento.obrigatorio ? 'OBRIGATÓRIO': 'OPICIONAL'; %></span>
+                      </div>
+                      <% complemento.itens.forEach((item) =>{ %>
+                      <div class="item-acompanhamento">
+                        <div>
+                          <h3 class="nome-item"><%= item.nome %> <small>R$ <%= item.valor.toFixed(2) %></small></h3>
+                          <p><%= item.descricao %></p>
+                        </div>
+                        <div class="quantidade-group">
+                          <button type="button" id="menos" onclick="less(this)">-</button>
+                          <input type="text" name="num" id="num" data-min="<%= item.quantidade_min %>" data-max="<%= item.quantidade_max %>" value="0" data-price="<%= item.valor.toFixed(2) %>"/>
+                          <button type="button" id="mais" onclick="more(this)">+</button>
+                        </div>
+                      </div>
+                      <% }) %>
+                    </div>
+                  <% }) %>
+                  </div>
+                  <footer class="footer-modal">
+                    <div class="group-footer-finish">
+                      <div class="quantidade-group">
+                        <button type="button" id="menos" onclick="less(this)">-</button>
+                        <input type="text" name="num" id="num" data-min="0" data-max="5" value="0" data-price="0.00"/>
+                        <button type="button" id="mais" onclick="more(this)">+</button>
+                      </div>
+                      <button onclick="addPedido(this)">
+                        Adicionar: R$ <span id="price"><%= produto.preco.toFixed(2) %></span>
+                      </button>
+                    </div>
+                    <textarea
+                      name="observacoes"
+                      id="observacoes"
+                      cols="30"
+                      rows="10"
+                      placeholder="Observações"
+                    >
+                    </textarea>
+                  </footer>
+                </div>
+              </div>
+            </div>
+
+            <% } }); %>
+          </div>
+          <% }); %>
+        </section>
+      </div>
+      
+      <!--page-content-->
+      <section>
+        <div class="right-section">
+          <div class="side-top">
+            <div class="top-menu-right">
+              <img src="./images/icons/shopping-cart.png" alt="user-img" />
+              <span>2</span>
+            </div>
+            <div class="my-order-wrapper">
+              <h2>Meu Pedido 😎</h2>
+            </div>
+            <div class="blue-box">
+              <div class="line-1">
+                <p>Renata Lima</p>
+                <img
+                  src="./images/icons/pencil.png"
+                  alt=""
+                  style="width: 16px"
+                />
+              </div>
+              <div class="line-1">
+                <p>81 984319706</p>
+                <img
+                  src="./images/icons/pencil.png"
+                  alt=""
+                  style="width: 16px"
+                />
+              </div>
+              <div class="line-1">
+                <p>Rua Barnabé de Oliveira, nº 35 - Ibura - Recife</p>
+                <img
+                  src="./images/icons/pencil.png"
+                  alt=""
+                  style="width: 16px"
+                />
+              </div>
+              <div class="line-1">
+                <p>Bloco A, apt 202</p>
+                <img
+                  src="./images/icons/pencil.png"
+                  alt=""
+                  style="width: 16px"
+                />
+              </div>
+              <div class="line-1">
+                <p>Próximo ao atacadão</p>
+                <img
+                  src="./images/icons/pencil.png"
+                  alt=""
+                  style="width: 16px"
+                />
+              </div>
+              <div class="line-2">
+                <p>Forma pagamento</p>
+                <span>Dinheiro</span>
+              </div>
+            </div>
+            <div class="billing-section">
+              <div class="billing-item">
+                <img
+                  class="billing-food"
+                  src="http://localhost:3000/images/produtos/tgalinhaacabidelajpg.jpeg"
+                  alt="food-img"
+                />
+                <h3>1</h3>
+                <p>X</p>
+
+                <h3 class="dish-name">Galinha Cabidela</h3>
+                <span>$16.00</span>
+              </div>
+              <div class="billing-item">
+                <img
+                  class="billing-food"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Flickr_-_cyclonebill_-_Pommes_frites_med_salatmayonnaise.jpg/220px-Flickr_-_cyclonebill_-_Pommes_frites_med_salatmayonnaise.jpg"
+                  alt="food-img"
+                />
+                <h3>2</h3>
+                <p>X</p>
+
+                <h3 class="dish-name">Isca de tilápia na farinha panko</h3>
+                <span>$18.00</span>
+              </div>
+              <div class="billing-item">
+                <img
+                  class="car-img"
+                  src="./images/icons/fast-delivery.png"
+                  alt="food-img"
+                />
+                <h3>1</h3>
+                <p>X</p>
+                <h3 class="dish-name">Entrega</h3>
+
+                <span>$4.00</span>
+              </div>
+            </div>
+            <div class="total-amt">
+              <p>Total:</p>
+              <h4>R$ 38.00</h4>
+            </div>
+          </div>
+
+          <div class="horizonal-line"></div>
+          <div class="checkout-section">
+            <div class="ch">
+              <p>Finalizar</p>
+              <img src="./images/icons/right-arrow.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Socket -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Scroll categoria -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+
+      //this is where we apply opacity to the arrow
+      $(window).scroll(function () {
+        //get scroll position
+        var topWindow = $(window).scrollTop();
+        //multipl by 1.5 so the arrow will become transparent half-way up the page
+        var topWindow = topWindow * 1.5;
+
+        //get height of window
+        var windowHeight = $(window).height();
+
+        //set position as percentage of how far the user has scrolled
+        var position = topWindow / windowHeight;
+        //invert the percentage
+        position = 1 - position;
+
+        //define arrow opacity as based on how far up the page the user has scrolled
+        //no scrolling = 1, half-way up the page = 0
+        $(".arrow-wrap").css("opacity", position);
+      });
+
+      //Code stolen from css-tricks for smooth scrolling:
+      $(function () {
+        $("a[href*=#]:not([href=#])").click(function () {
+          if (
+            location.pathname.replace(/^\//, "") ==
+              this.pathname.replace(/^\//, "") &&
+            location.hostname == this.hostname
+          ) {
+            var target = $(this.hash);
+            target = target.length
+              ? target
+              : $("[name=" + this.hash.slice(1) + "]");
+            if (target.length) {
+              $("html,body").animate(
+                {
+                  scrollTop: target.offset().top,
+                },
+                1000
+              );
+              return false;
+            }
+          }
+        });
+      });
+    </script>
+    <!-- Filtro -->
+    <script>
+      function buscar() {
+        var filtro = $("#buscar").val().toUpperCase();
+
+        $(".name-product").each(function () {
+          var textoEnTd = $(this).text().toUpperCase();
+          if (textoEnTd.indexOf(filtro) >= 0) {
+            $(this).addClass("existe");
+          } else {
+            $(this).removeClass("existe");
+          }
+        });
+
+        $(".special-item").each(function () {
+          if ($(this).children(".existe").length > 0) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+      }
+    </script>
+    <script>
+
+      const newItem = (id, price) => ({
+        id: id,
+        quantidade: 1,
+        observacoes: "",
+        valor:price,
+        complementos: [],
+      });
+
+      const newComplemento = (id, value) => ({
+        id: id,
+        quantidade: null,
+        valor: null,
+        obrigatorio: true,
+      })
+
+      const socket = io();
+
+      // Manipulador de evento para receber o pedido confirmado
+      socket.on("pedidoRecebido", (mensagem) => {
+        console.log("Pedido recebido:", mensagem);
+      });
+
+      let item;
+
+      function openModal(e) {
+        e.nextElementSibling.style.display = "block";
+        
+        item = newItem(parseInt(e.id), parseFloat(e.dataset.price));
+        
+      }
+      function closeModal(e) {
+        e.parentNode.parentNode.parentNode.style.display = "none";
+        // e.parentNode.style.display = "none";
+        // pedido.push(parseInt(e.id));
+        // socket.emit("pedido", pedido);
+      }
+
+      function addPedido(e) {
+        const buttonFinish = e.parentNode.parentNode.parentNode.parentNode;
+        buttonFinish.style.display = "none";
+        
+        console.log(e.children.price.innerHTML);
+        // e.parentNode.style.display = "none";
+        // pedido.push(parseInt(e.id));
+        // socket.emit("pedido", pedido);
+      }
+
+      const pedido = {
+        valorTotal: 0.0,
+        trocopara: 0.0,
+        troco: 0.0,
+        formaPagamento: "dinheiro",
+        cliente: {
+          nome: "josimar",
+          whatsapp: "819843198706",
+        },
+        produtos: [
+          {
+            id: 1,
+            quantidade: 1,
+            observacoes: "sem catchup pfvr",
+            valor: 20.00,
+            complementos: [
+              {
+                id: 1,
+                quantidade: 1,
+                valor: null,
+                obrigatorio: true,
+              },
+            ],
+          },
+        ],
+        entrega: {
+          Endereço: "Rua cambuca , 58 a - Areias / Recife",
+          Bairro: "Areias",
+          cidade: "Recife",
+          complemento: "casa",
+          pontoReferencia: "perto do posto ipiranga",
+        },
+      };
+    </script>
+    <!-- Menos e Mais -->
+    <script>
+
+      function less(e) {
+        setValue("menos", e);
+      }
+
+      function more(e) {
+        setValue("mais", e);
+      }
+
+      function setValue(operacao, element) {
+        const buttonAdicionar = element.parentNode.parentNode.parentNode.parentNode.nextElementSibling.querySelector("#price");
+        let priceProduct = parseFloat(buttonAdicionar.innerHTML)
+        
+        let groupItens = element.parentNode.parentNode.parentNode;
+        let countItems = parseInt(groupItens.dataset.count);
+        let maxItems = parseInt(groupItens.dataset.max);
+
+        maisTodos = groupItens.querySelectorAll('.item-acompanhamento #mais')
+
+        let inputItem = element.parentNode.children.num;
+        let min = parseInt(inputItem.dataset.min);
+        let max = parseInt(inputItem.dataset.max);
+        let price = parseFloat(inputItem.dataset.price);
+        let numero = parseInt(inputItem.value);
+        
+        numero = operacao == "mais" ? numero+1 : numero-1;
+        countItems = operacao == "mais" ? countItems+1 : countItems-1;
+        priceProduct = operacao == "mais" ? priceProduct+price : priceProduct-price;
+
+        var menos = element.parentNode.children.menos;
+        var mais = element.parentNode.children.mais;
+
+        (numero <= min) ? menos.style.visibility = "hidden" : menos.style.visibility = "visible";
+        (numero >= max) ? mais.style.visibility = "hidden" : mais.style.visibility = "visible";
+        
+        if (countItems >= maxItems){
+          maisTodos.forEach(m => m.style.visibility = "hidden");
+        }else{
+          maisTodos.forEach(m => m.style.visibility = "visible");
+        }
+
+        console.log(numero)
+        console.log(countItems)
+        console.log(item.valor = priceProduct)
+        console.log(item)
+
+        inputItem.value = numero;
+        groupItens.dataset.count = countItems;
+        buttonAdicionar.innerHTML = priceProduct.toFixed(2)
+      }
+
+    </script>
+  </body>
+</html>

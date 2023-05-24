@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sistema de Pedidos</title>
+  <title>Menu de Almoço</title>
+  <style>
+    #container {
+      max-width: 100%;
+      max-height: 100%;
+      background-color: #E3E3E3;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Entrega</h1>
+
+  <div id='container'>
+  </div>
+  
+  
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+
+    const preparado = []
+    
+    const socket = io();
+
+    // Manipulador de evento para receber o pedido confirmado
+    socket.on('paraentrega', (pedidoentrega) => {
+      console.log('Pedido recebido:', pedidoentrega);
+
+      pedidoentrega.forEach(pedido => {
+        document.body.insertAdjacentHTML('beforeend', `<div>Pedido ${pedido} - Endereço tal. <button id="${pedido}" onclick="finalizado(this)">Entregue</button></div>`)
+      });
+    });
+
+    // Finalizar pedido
+    function finalizado(e){
+      preparado.push(parseInt(e.id));
+      socket.emit('finalizado', preparado);
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.4.2/lottie.min.js"></script>
+  <script>
+    var animData = {
+      container: document.getElementById('container'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://raw.githubusercontent.com/robbdiazz/uianims/master/delivery.json'
+  };
+  var anim = bodymovin.loadAnimation(animData);
+
+  </script>
+</body>
+</html>
