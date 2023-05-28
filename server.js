@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 // Rota Cliente
 app.get('/cliente', (req, res) => {
-  res.render('client', {empresa : db.empresa, produtos: db.produtos, categorias: db.categorias});
+  res.render('client', {empresa : db.empresa, produtos: db.produtos, categorias: db.categorias, bairros: db.bairrosEntrega, pagamento: db.formaPagamento});
 });
 
 // Rota Pedido
@@ -68,6 +68,6 @@ io.on('connection', (socket) => {
 });
 
 // Inicia o servidor na porta 3000
-server.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
+server.listen(3004, () => {
+  console.log('Servidor rodando na porta 3004');
 });

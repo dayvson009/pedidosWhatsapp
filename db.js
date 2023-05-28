@@ -198,7 +198,7 @@ module.exports = {
   bairrosEntrega: [
     {
       nome: "Ibura",
-      taxa: 4.0,
+      taxa: 4.75,
     },
   ],
 
