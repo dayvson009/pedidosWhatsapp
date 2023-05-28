@@ -515,7 +515,11 @@
       }
 
       function formularioEntrega(e) {
-        console.log(e.options[e.selectedIndex])
+        if(e.options[e.selectedIndex].value == "dinheiro"){
+          document.querySelector(".trocoGroup").classList.add("active")
+        }else if( ["debito", "crédito", "pix"].includes(e.options[e.selectedIndex].value)){
+          document.querySelector(".trocoGroup").classList.remove("active")
+        }
 
         pedido.entrega[e.name] = e.value;
         if(e.name == "bairro"){

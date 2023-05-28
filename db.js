@@ -202,7 +202,7 @@ module.exports = {
     },
   ],
 
-  formaPagamento: ["dinheiro", "Debito", "Crédito", "Pix"],
+  formaPagamento: ["dinheiro", "debito", "crédito", "pix"],
 
   pedidos: []
 };
