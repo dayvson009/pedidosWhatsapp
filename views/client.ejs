@@ -181,20 +181,12 @@
               <div class="line">
                 <input type="text" name="nome" id="field_nome" onchange="formularioCliente(this)" value="" required>
                 <label for="field_nome">Nome</label>
-                <img
-                  src="./images/icons/pencil.png"
-                  alt=""
-                  style="width: 16px"
-                />
+                <img src="./images/icons/pencil.png" alt="" style="width: 16px" />
               </div>
               <div class="line">
                 <input type="text" name="whatsapp" id="field_whatsapp" onchange="formularioCliente(this)" value="" required>
                 <label for="field_whatsapp">Whatsapp</label>
-                <img
-                  src="./images/icons/pencil.png"
-                  alt=""
-                  style="width: 16px"
-                />
+                <img src="./images/icons/pencil.png" alt="" style="width: 16px" />
               </div>
               <div class="line">
                 <select name="pagamento" onchange="formularioEntrega(this)" id="">
@@ -207,11 +199,7 @@
               <div class="line trocoGroup">
                 <input type="text" name="troco" onchange="trocoAtual(this)" id="field_troco" value="" required>
                 <label for="field_troco">Troco pra quanto?</label>
-                <img
-                  src="./images/icons/pencil.png"
-                  alt=""
-                  style="width: 16px"
-                />
+                <img src="./images/icons/pencil.png" alt="" style="width: 16px" />
               </div>
               <div class="lines">
                 <input type="radio" name="tipoEntrega" id="retirada" checked>
@@ -507,7 +495,7 @@
       }
 
       function trocoAtual(e) {
-        pedido.trocopara = e.value;
+        pedido.trocopara = parseFloat(e.value);
       }
 
       function formularioCliente(e) {

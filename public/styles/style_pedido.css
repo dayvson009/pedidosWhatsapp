@@ -465,7 +465,7 @@ button span {
   display: none;
 }
 .trocoGroup.active{
-  display: block;
+  display: flex;
 }
 
 .lines input{
