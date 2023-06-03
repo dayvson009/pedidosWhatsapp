@@ -83,7 +83,6 @@ io.on('connection', (socket) => {
 
     //Filtra só os aprovados e preparando
     const preparar = db.pedidos.filter(pedido => [statusPedido[1], statusPedido[2]].includes(pedido.status));
-    // Envia o pedido para Cozinha
     io.emit('apreparar', preparar);
 
     //Atualizar a lista
@@ -99,9 +98,10 @@ io.on('connection', (socket) => {
     
     //Filtra só os aprovados e preparando
     const preparar = db.pedidos.filter(pedido => [statusPedido[1], statusPedido[2]].includes(pedido.status));
-    
-    // Atualiza a lista
     io.emit('apreparar', preparar);
+
+    const novosPedidos = db.pedidos.filter(pedido => statusPedido.includes(pedido.status));
+    io.emit('pedidoRecebido', novosPedidos);
   });
 
 
@@ -119,6 +119,9 @@ io.on('connection', (socket) => {
     //Filtra só os aprovados e preparando
     const entrega = db.pedidos.filter(pedido => [statusPedido[3], statusPedido[4]].includes(pedido.status));
     io.emit('paraentrega', entrega);
+
+    const novosPedidos = db.pedidos.filter(pedido => statusPedido.includes(pedido.status));
+    io.emit('pedidoRecebido', novosPedidos);
   });
 
   // ----------- Finalizado --------------

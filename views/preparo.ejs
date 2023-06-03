@@ -182,7 +182,7 @@
             <div class="tab-content">
               <div>`;
         
-        item += pedido.status == "aprovado" ? `<button>Preparar</button>`: `<button>Finalizar</button>`; 
+        item += pedido.status == "aprovado" ? `<button onclick="preparar('${pedido.id}')">Preparar</button>`: `<button <button onclick="finalizar('${pedido.id}')">Finalizar</button>`; 
               
         item += `</div>`
         
