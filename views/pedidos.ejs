@@ -79,8 +79,6 @@
           <table class="table" id="tabla" data-sort="table">
             <thead>
               <tr>
-                Cod. Pedido - Nome - Telefone - Total - F. de Pagamento - Troco
-                Para - Troco - Status - Imprimir
                 <th>Cod. Pedido</th>
                 <th>Nome</th>
                 <th>Telefone</th>
@@ -94,30 +92,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>#201</td>
-                <td>Dayvson Vinícius</td>
-                <td>81 984319706</td>
-                <td>Dinheiro</td>
-                <td>R$ 30.00</td>
-                <td>R$ 50.00</td>
-                <td>R$ 20.00</td>
-                <td>Novo</td>
-                <td><img src="/images/icons/impressora.png" alt="" /></td>
-                <td><button class="aprove">Aprovar</button><button>Desaprovar</button></td>
-              </tr>
-              <tr>
-                <td>#202</td>
-                <td>Renata Lima</td>
-                <td>81 991306405</td>
-                <td>Pix</td>
-                <td>R$ 30.00</td>
-                <td>-</td>
-                <td>-</td>
-                <td>Preparando</td>
-                <td><img src="/images/icons/impressora.png" alt="" /></td>
-                <td><button class="aprove">Aprovar</button><button>Desaprovar</button></td>
-              </tr>
+              <% novosPedidos.forEach(pedido =>{ %>
+                <tr id="pedido<%= pedido.id %>">
+                  <td>#<%= pedido.id %></td>
+                  <td><%= pedido.cliente.nome %></td>
+                  <td><%= pedido.cliente.whatsapp %></td>
+                  <td><%= pedido.formaPagamento %></td>
+                  <td>R$ <%= pedido.valorTotal.toFixed(2) %></td>
+                  <td>R$ <%= pedido.trocopara.toFixed(2) %></td>
+                  <td>R$ <%= pedido.trocopara-pedido.valorTotal.toFixed(2) %></td>
+                  <td><%= pedido.status %></td>
+                  <td><img src="/images/icons/impressora.png" alt="" /></td>
+                  <td>
+                    <button class="aprove" onclick="aprove('<%= pedido.id %>')">Aprovar</button>
+                    <button onclick="desaprove('<%= pedido.id %>')">Desaprovar</button>
+                  </td>
+                </tr>
+              <% }) %>
             </tbody>
           </table>
         </div>
@@ -127,31 +118,54 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const apreparar = [];
-
       const socket = io();
 
       // Manipulador de evento para receber o pedido confirmado
       socket.on("pedidoRecebido", (pedidos) => {
-        console.log("Pedido recebido:", pedidos);
-
-        pedidos.forEach((pedido) => {
-          document.body.insertAdjacentHTML(
-            "beforeend",
-            `<div>ITEM ${pedido} <button id="${pedido}" onclick="preparar(this)">Preparar</button></div>`
-          );
-        });
+        mostrarPedidos(pedidos)
       });
 
-      // Enviar pra preparo
-      function preparar(e) {
-        apreparar.push(parseInt(e.id));
-        socket.emit("preparar", apreparar);
+      function aprove(id){
+        socket.emit("preparar", id);
+      }
+
+      function desaprove(id){
+        const tr = document.getElementById(`pedido${id}`);
+        tr.remove();
+        socket.emit("rejeitar", id);
       }
     </script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
+
+      function mostrarPedidos(pedidos){
+        const tbody = document.querySelector("#tabla tbody");
+
+        const templateLine = pedidos.map((pedido, index) => {
+          
+          console.log(pedido)
+          
+          return `<tr id="pedido${pedido.id}">
+            <td>#${pedido.id}</td>
+            <td>${pedido.cliente.nome}</td>
+            <td>${pedido.cliente.whatsapp}</td>
+            <td>${pedido.formaPagamento}</td>
+            <td>R$ ${pedido.valorTotal.toFixed(2)}</td>
+            <td>R$ ${pedido.trocopara.toFixed(2)}</td>
+            <td>R$ ${pedido.trocopara-pedido.valorTotal.toFixed(2)}</td>
+            <td>${pedido.status}</td>
+            <td><img src="/images/icons/impressora.png" alt="" /></td>
+            <td>
+              <button class="aprove" onclick="aprove('${pedido.id}')">Aprovar</button>
+              <button onclick="desaprove('${pedido.id}')">Desaprovar</button>
+            </td>
+          </tr>`;
+        }).join("");
+        tbody.innerHTML = "";
+        tbody.insertAdjacentHTML( "beforeend", templateLine );
+      }
+
       function buscar() {
         var filtro = $("#buscar").val().toUpperCase();
 

@@ -1,0 +1,766 @@
+{
+  "empresa": {
+    "id": 1,
+    "nomeEmpresa": "LIDIA'S RESTAURANTE E NAILTON DO GALETO",
+    "contato": "8198730-0247",
+    "endereco": "Endereço: Rua cambuca , 58 a - Areias / Recife",
+    "imagemPerfil": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/lidia,srestauranteenailtondogaleto/tScreenshots_2022-10-10-16-27-41.png",
+    "capaPerfil": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/lidia,srestauranteenailtondogaleto/tbReceita-de-Feijoada-Baiana-para-Almo%C3%A7o-de-Domingo-scaled.jpg"
+  },
+  "horarioFuncionamento": {
+    "domingo": "07h00 às 15h00",
+    "segunda": "fechado",
+    "terca": "07h00 às 15h00",
+    "quarta": "07h00 às 15h00",
+    "quinta": "07h00 às 15h00",
+    "sexta": "07h00 às 15h00",
+    "sabado": "07h00 às 15h00"
+  },
+  "categorias": [
+    {
+      "id": 1,
+      "titulo": "Pratos Executivos",
+      "order": 0
+    },
+    {
+      "id": 0,
+      "titulo": "Pratos pra 3 a 4 pessoas",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "titulo": "Simples na brasa",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "titulo": "Bebidas",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "titulo": "Porção",
+      "order": 4
+    }
+  ],
+  "ItensComplementos": [
+    {
+      "id": 0,
+      "nome": "Arroz",
+      "valor": 0
+    },
+    {
+      "id": 1,
+      "nome": "Vinagrete",
+      "valor": 0
+    },
+    {
+      "id": 2,
+      "nome": "Purê",
+      "valor": 0
+    },
+    {
+      "id": 3,
+      "nome": "Maionese",
+      "valor": 0
+    },
+    {
+      "id": 4,
+      "nome": "Macarrão",
+      "valor": 0
+    },
+    {
+      "id": 5,
+      "nome": "Farinha",
+      "valor": 0
+    },
+    {
+      "id": 6,
+      "nome": "Salada",
+      "valor": 0
+    },
+    {
+      "id": 7,
+      "nome": "Feijão preto",
+      "valor": 0
+    },
+    {
+      "id": 8,
+      "nome": "Feijão mulato",
+      "valor": 0
+    },
+    {
+      "id": 9,
+      "nome": "Feijão macassar",
+      "valor": 0
+    }
+  ],
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Galinha Cabidela",
+      "descricao": "Sem Descrição",
+      "preco": 16,
+      "imagem": "galinha-cabidela.jpg",
+      "categoria": 1,
+      "quantidade_max": null,
+      "complementos": [
+        {
+          "id": 0,
+          "titulocomplemento": "Opções de carne",
+          "quantidade_min": 1,
+          "quantidade_max": 1,
+          "obrigatorio": true,
+          "itens": [
+            {
+              "id": 0,
+              "nome": "Arroz",
+              "descricao": "",
+              "quantidade_min": 0,
+              "quantidade_max": 4,
+              "valor": 2.4
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "titulocomplemento": "Opcoes de carne",
+          "quantidade_min": 0,
+          "quantidade_max": 5,
+          "obrigatorio": false,
+          "itens": [
+            {
+              "id": 1,
+              "nome": "Vinagrete",
+              "descricao": "",
+              "quantidade_min": 0,
+              "quantidade_max": 2,
+              "valor": 0.25
+            },
+            {
+              "id": 2,
+              "nome": "Purê",
+              "descricao": "",
+              "quantidade_min": 0,
+              "quantidade_max": 1,
+              "valor": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nome": "Panqueca de carne",
+      "descricao": "Sem Descrição",
+      "preco": 17,
+      "imagem": "panqueca650.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 3,
+      "nome": "Isca de tilápia na farinha panko",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "iscadetilapia_1.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 4,
+      "nome": "Isca de cupim com queijo",
+      "descricao": "Sem Descrição",
+      "preco": 20,
+      "imagem": "cupim com queijo.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 5,
+      "nome": "Isca de frango na farinha panko e molho rosé",
+      "descricao": "Sem Descrição",
+      "preco": 16,
+      "imagem": "tdownload5.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 6,
+      "nome": "Cupim acebolado",
+      "descricao": "Sem Descrição",
+      "preco": 20,
+      "imagem": "cupim acebolado .png",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 7,
+      "nome": "Filé de Frango à Milanesa",
+      "descricao": "Sem Descrição",
+      "preco": 16,
+      "imagem": "e5fa77a94f11bc24c0987c5f62145373.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 8,
+      "nome": "Galinha à Milanesa",
+      "descricao": "Sem Descrição",
+      "preco": 16,
+      "imagem": "",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 9,
+      "nome": "Galinha Assada",
+      "descricao": "Sem Descrição",
+      "preco": 15,
+      "imagem": "frango-frito-estilo-americano-receita_18052020142306.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 10,
+      "nome": "Galinha Guisada",
+      "descricao": "Sem Descrição",
+      "preco": 15,
+      "imagem": "galinha-de-capoeira-guisada.jpeg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 12,
+      "nome": "Bife à Milanesa",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "como-fazer-bife-a-milanesa-perfeito.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 13,
+      "nome": "Carne de Sol Acebolado",
+      "descricao": "Sem Descrição",
+      "preco": 22,
+      "imagem": "iscas-de-file-acebolado-01-500x375.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 14,
+      "nome": "Carne de Sol com Queijo",
+      "descricao": "Sem Descrição",
+      "preco": 23,
+      "imagem": "carnedesol.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 15,
+      "nome": "Charque com Queijo",
+      "descricao": "Sem Descrição",
+      "preco": 21,
+      "imagem": "Carne-seca-com-queijo-coalho.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 16,
+      "nome": "Arrumadinho de Charque",
+      "descricao": "Sem Descrição",
+      "preco": 20,
+      "imagem": "arrumadinho-de-charque.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 17,
+      "nome": "Arrumadinho de Carne de Sol",
+      "descricao": "Sem Descrição",
+      "preco": 22,
+      "imagem": "arrumadinho_de_carne_seca.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 18,
+      "nome": "Arrumadinho Misto Vinagrete e Batata Frita",
+      "descricao": "Sem Descrição",
+      "preco": 23,
+      "imagem": "arrumadinho-de-charque-889x500.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 19,
+      "nome": "Parmegiana de Carne",
+      "descricao": "Sem Descrição",
+      "preco": 22,
+      "imagem": "parmegianadecarne.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 20,
+      "nome": "Parmegiana de Frango",
+      "descricao": "Sem Descrição",
+      "preco": 20,
+      "imagem": "parmegianadefrango.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 21,
+      "nome": "Isca de Fígado Acebolado",
+      "descricao": "Sem Descrição",
+      "preco": 15,
+      "imagem": "figadoacebolado.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 22,
+      "nome": "Bisteca de Boi",
+      "descricao": "Sem Descrição",
+      "preco": 19,
+      "imagem": "bisteca-bovina.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 23,
+      "nome": "Bisteca Suína",
+      "descricao": "Sem Descrição",
+      "preco": 16,
+      "imagem": "carrésuíno.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 24,
+      "nome": "Costela Guisada",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "costela.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 25,
+      "nome": "Bife Acebolado",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "bife-acebolado.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 26,
+      "nome": "Isca de Carne com Queijo",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "tirinhas-de-file-com-molho-de-queijo-minas.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 27,
+      "nome": "Costela Assada",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "assar-costela-no-forno.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 28,
+      "nome": "Isca de Fígado Acebolado",
+      "descricao": "Sem Descrição",
+      "preco": 15,
+      "imagem": "figadoacebolado.jpg",
+      "categoria": 1,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 29,
+      "nome": "Charque",
+      "preco": 20,
+      "descricao": "Sem Descrição",
+      "imagem": "charque.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 30,
+      "nome": "Filé de Frango Assado",
+      "descricao": "Sem Descrição",
+      "preco": 16,
+      "imagem": "",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 31,
+      "nome": "Guisadinho com legumes",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "guisado-de-costela-suina-aos-legumes-da-temporada.jpeg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 32,
+      "nome": "Rolinho de Frango com Queijo",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "Faca-esse-enroladinho-de-presunto-e-queijo-humm-fica-uma-delicia.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 33,
+      "nome": "Calabresa Acebolada",
+      "descricao": "Sem Descrição",
+      "preco": 15,
+      "imagem": "23008227.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 34,
+      "nome": "Galeto na Brasa",
+      "descricao": "Sem Descrição",
+      "preco": 17,
+      "imagem": "braseiro_carrosel_01.jpg",
+      "categoria": 1,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 35,
+      "nome": "Toscana na Brasa",
+      "descricao": "Sem Descrição",
+      "preco": 16,
+      "imagem": "TOSCANA.jpg",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 36,
+      "nome": "Cupim acebolado",
+      "descricao": "Sem Descrição",
+      "preco": 20,
+      "imagem": "cupim acebolado .png",
+      "categoria": 1,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 37,
+      "nome": "frango xadrez c/arroz shop suey",
+      "descricao": "Sem Descrição",
+      "preco": 17,
+      "imagem": "frangoxandrez.jpg",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 38,
+      "nome": "Isca de tilápia a milanesa",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 39,
+      "nome": "isca de bananinha acebolada",
+      "descricao": "Sem Descrição",
+      "preco": 18,
+      "imagem": "isca.jpg",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 40,
+      "nome": "Picanha suína no barbecue",
+      "descricao": "Sem Descrição",
+      "preco": 15,
+      "imagem": "bb.jpg",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 41,
+      "nome": "Galeto na Brasa",
+      "descricao": "Sem Descrição",
+      "preco": 50,
+      "imagem": "",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 42,
+      "nome": "Arrumadinho de Carne de Sol",
+      "descricao": "Sem Descrição",
+      "preco": 60,
+      "imagem": "arrumadinho_de_carne_seca.jpg",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 43,
+      "nome": "Arrumadinho de Charque",
+      "descricao": "Sem Descrição",
+      "preco": 20,
+      "imagem": "arrumadinho-de-charque.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 44,
+      "nome": "Arrumadinho Misto",
+      "descricao": "Sem Descrição",
+      "preco": 65,
+      "imagem": "",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 45,
+      "nome": "Parmegiana de Frango",
+      "descricao": "Sem Descrição",
+      "preco": 20,
+      "imagem": "parmegianadefrango.jpg",
+      "categoria": 1,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 46,
+      "nome": "Parmegiana de Carne",
+      "descricao": "Sem Descrição",
+      "preco": 22,
+      "imagem": "parmegianadecarne.jpg",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 47,
+      "nome": "Toscana na Brasa",
+      "descricao": "Sem Descrição",
+      "preco": 16,
+      "imagem": "TOSCANA.jpg",
+      "categoria": 2,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 48,
+      "nome": "Asinha na brasa",
+      "descricao": "Sem Descrição",
+      "preco": 3,
+      "imagem": "asinha.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 49,
+      "nome": "Meio galeto",
+      "descricao": "Sem Descrição",
+      "preco": 13,
+      "imagem": "meio.jpg",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 50,
+      "nome": "Galeto simples",
+      "descricao": "Sem Descrição",
+      "preco": 25,
+      "imagem": "",
+      "categoria": 0,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 51,
+      "nome": "Coca-Cola lata",
+      "descricao": "Sem Descrição",
+      "preco": 6,
+      "imagem": "coca lata.jpg",
+      "categoria": 3,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 52,
+      "nome": "Coca-Cola zero",
+      "descricao": "Sem Descrição",
+      "preco": 6,
+      "imagem": "zero.jpg",
+      "categoria": 3,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 53,
+      "nome": "Fanta Laranja lata",
+      "descricao": "Sem Descrição",
+      "preco": 6,
+      "imagem": "fanta-ok.png",
+      "categoria": 3,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 54,
+      "nome": "Guaraná Antarctica lata",
+      "descricao": "Sem Descrição",
+      "preco": 6,
+      "imagem": "lata.png",
+      "categoria": 3,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 55,
+      "nome": "Sprite lata",
+      "descricao": "Sem Descrição",
+      "preco": 6,
+      "imagem": "sprite.jpg",
+      "categoria": 3,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 56,
+      "nome": "H2O Limoneto",
+      "descricao": "Sem Descrição",
+      "preco": 6,
+      "imagem": "h2o.jpg",
+      "categoria": 3,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "nome": "refrigerantes 1 litro",
+      "id": 57,
+      "preco": 0,
+      "descricao": "Sem Descrição",
+      "imagem": "refri.png",
+      "categoria": 3,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "nome": "Refrigerantes 2 litros",
+      "id": 1,
+      "preco": 0,
+      "descricao": "Sem Descrição",
+      "imagem": "2l.jpg",
+      "categoria": 3,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 58,
+      "nome": "Feijão",
+      "descricao": "Sem Descrição",
+      "preco": 7,
+      "imagem": "",
+      "categoria": 4,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 59,
+      "nome": "Arroz",
+      "descricao": "Sem Descrição",
+      "preco": 6,
+      "imagem": "",
+      "categoria": 4,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 60,
+      "nome": "Macarrão",
+      "descricao": "Sem Descrição",
+      "preco": 5,
+      "imagem": "",
+      "categoria": 4,
+      "quantidade_max": null,
+      "complementos": []
+    },
+    {
+      "id": 61,
+      "nome": "Batata frita G",
+      "descricao": "Sem Descrição",
+      "preco": 12,
+      "imagem": "batata.jpg",
+      "categoria": 4,
+      "quantidade_max": null,
+      "complementos": []
+    }
+  ],
+  "bairrosEntrega": [
+    {
+      "nome": "Ibura",
+      "taxa": 4.75
+    }
+  ],
+  "formaPagamento": [
+    "dinheiro",
+    "debito",
+    "crédito",
+    "pix"
+  ],
+  "pedidos": []
+}

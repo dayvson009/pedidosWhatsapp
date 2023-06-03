@@ -80,11 +80,7 @@
 
             <div class="special-item" data-categoria="<%= produto.categoria %>">
               <div class="thumbnil">
-                <!-- <img
-                  src="https://source.unsplash.com/270x160/?food/<%= index %>"
-                  alt=""
-                /> -->
-                <img src="./images/produtos/<%= produto.imagem %>" alt="" />
+                <img src="/images/produtos/<%= produto.imagem %>" alt="" />
                 <div class="price">R$ <%= produto.preco.toFixed(2) %></div>
               </div>
               <p class="name-product"><%= produto.nome %></p>
@@ -189,7 +185,7 @@
                 <img src="./images/icons/pencil.png" alt="" style="width: 16px" />
               </div>
               <div class="line">
-                <select name="pagamento" onchange="formularioEntrega(this)" id="">
+                <select name="pagamento" onchange="formularioPagamento(this)" id="">
                   <option value="null" >Forma de pagamento</option>
                   <% pagamento.forEach(function(formaPagamento){ %>
                     <option value="<%= formaPagamento %>" ><%= formaPagamento %></option>
@@ -254,7 +250,7 @@
 
           <div class="horizonal-line"></div>
           <div class="checkout-section">
-            <div class="ch">
+            <div class="ch" onclick="finalizarPedido()">
               <p>Finalizar</p>
               <img src="./images/icons/right-arrow.png" alt="" />
             </div>
@@ -364,12 +360,6 @@
 
       const socket = io();
 
-      // Manipulador de evento para receber o pedido confirmado
-      socket.on("pedidoRecebido", (mensagem) => {
-        console.log("Pedido recebido:", mensagem);
-      });
-
-
       function openModal(e) {
         console.log(e);
 
@@ -419,7 +409,6 @@
             return
           }
         })
-
         
         if(required){
           alert(`Item Obrigatório precisa ser selecionado`)
@@ -433,14 +422,13 @@
         modal.classList.remove("active");
 
         refreshPedidoList();
-        
       }
 
       function refreshPedidoList() {
         const listPedidos = document.querySelector(".billing-section");
 
         const valorTotal = document.getElementById("valorTotal");
-        valorTotal.innerHTML = (pedido.entrega.valorEntrega + pedido.valorTotal).toFixed(2);
+        valorTotal.innerHTML = pedido.valorTotal.toFixed(2);
 
         const countItensPedidos = document.getElementById("countItensPedido");
         countItensPedidos.innerHTML = pedido.produtos.length;
@@ -502,16 +490,23 @@
         pedido.cliente[e.name] = e.value;
       }
 
-      function formularioEntrega(e) {
+      function formularioPagamento(e) {
         if(e.options[e.selectedIndex].value == "dinheiro"){
-          document.querySelector(".trocoGroup").classList.add("active")
+          document.querySelector(".trocoGroup").classList.add("active");
+          pedido.formaPagamento = e.options[e.selectedIndex].value;
         }else if( ["debito", "crédito", "pix"].includes(e.options[e.selectedIndex].value)){
+          pedido.formaPagamento = e.options[e.selectedIndex].value;
+          pedido.trocopara = 0;
+          field_troco.value = 0;
           document.querySelector(".trocoGroup").classList.remove("active")
         }
+      }
 
+      function formularioEntrega(e) {
         pedido.entrega[e.name] = e.value;
         if(e.name == "bairro"){
           pedido.entrega.valorEntrega = parseFloat(e.options[e.selectedIndex].dataset.taxa);
+          pedido.valorTotal = pedido.valorTotal + pedido.entrega.valorEntrega;
           refreshPedidoList();
         }
       }
@@ -538,9 +533,7 @@
       }
 
       function finalizarPedido() {
-        // e.parentNode.style.display = "none";
-        // pedido.push(parseInt(e.id));
-        // socket.emit("pedido", pedido);
+        socket.emit("pedido", pedido);
       }
 
       const pedido = {
@@ -560,6 +553,7 @@
           referencia: "",
           valorEntrega: 0
         },
+        status: "novo"
       };
 
     
