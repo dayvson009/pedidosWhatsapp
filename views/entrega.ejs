@@ -30,8 +30,6 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-
-    const preparado = []
     
     const socket = io();
 
@@ -60,6 +58,8 @@
       path: 'https://raw.githubusercontent.com/robbdiazz/uianims/master/delivery.json'
   };
   var anim = bodymovin.loadAnimation(animData);
+
+  setTimeout(()=>anim.destroy(), 2000);
 
   </script>
 </body>

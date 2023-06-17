@@ -62,26 +62,28 @@
             <% produtos.filter(function(produto,index){ if(produto.categoria ==
             categoria.id) { %>
 
-            <div class="special-item" data-categoria="<%= produto.categoria %>" onclick="openModal(this)"
+            <div class="special-item" data-categoria="<%= produto.categoria %>">
+              <div onclick="openModal(this)"
               id="<%= produto.id %>"
               data-name="<%= produto.nome %>"
               data-price="<%= produto.preco.toFixed(2) %>">
-              <div class="thumbnil" style="background-image: url('./images/produtos/<%= produto.imagem %>');">
-                <div class="price">R$ <%= produto.preco.toFixed(2) %></div>
-              </div>
-              <div>
-                <p class="name-product"><%= produto.nome %></p>
-                <div class="special-item-desc">
-                  <div>
-                    <img src="./images/icons/star.png" alt="" />
-                    <p>4.7</p>
-                  </div>
-                  <div class="grey-text">
-                    <p><%= produto.descricao %></p>
+                <div class="thumbnil" style="background-image: url('./images/produtos/<%= produto.imagem %>');">
+                  <div class="price">R$ <%= produto.preco.toFixed(2) %></div>
+                </div>
+                <div>
+                  <p class="name-product"><%= produto.nome %></p>
+                  <div class="special-item-desc">
+                    <div>
+                      <img src="./images/icons/star.png" alt="" />
+                      <p>4.7</p>
+                    </div>
+                    <div class="grey-text">
+                      <p><%= produto.descricao %></p>
+                    </div>
                   </div>
                 </div>
+                <button class="button-select" > Escolher </button>
               </div>
-              <button class="button-select" > Escolher </button>
               <div class="overlay">
                 <div class="modal">
                   <header>
@@ -309,7 +311,7 @@
 
       function openModal(e) {
 
-        const modal = e.lastElementChild;
+        const modal = e.parentNode.lastElementChild;
 
         modal.classList.add("active");
 
@@ -332,17 +334,14 @@
 
         const mais = modal.querySelectorAll('.item-acompanhamento #mais');
         const menos = modal.querySelectorAll('.item-acompanhamento #menos');
-
+        
         menos.forEach(m => m.style.visibility = "hidden");
         mais.forEach(m => m.style.visibility = "visible");
 
       }
 
       function closeModal(e) {
-        console.log(e.parentNode.parentNode.parentNode)
-        setTimeout(()=>{
-          e.parentNode.parentNode.parentNode.classList.remove("active");
-        },100)
+        e.parentNode.parentNode.parentNode.classList.remove("active");
       }
 
       function addPedido(e) {

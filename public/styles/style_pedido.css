@@ -110,6 +110,7 @@ input::placeholder {
 
 .finish-peidido{
   transition: .3s;
+  z-index: 15;
 }
 
 .search-img {
