@@ -4,6 +4,7 @@
     <title>Sistema de Pedidos</title>
     <title>Menu de Almoço</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
@@ -14,25 +15,16 @@
   <body>
     <main>
       <div id="page-content">
-        <nav>
-          <div class="menu-item">
-            <span>Pedidos</span>
-          </div>
-        </nav>
         <section class="delivery-detail">
           <div class="delivery-d-flex">
             <div class="landing-container">
-              <img src="./images/almoco.png" alt="boy-img" />
+              <img src="./images/logo.png" alt="boy-img" />
             </div>
             <div class="delivery-text">
               <div>
                 <h3><%= empresa.nomeEmpresa %> 🎉</h3>
               </div>
               <div>📞 <%= empresa.contato %></div>
-            </div>
-            <div class="learn-more">
-              <p>Saiba mais</p>
-              <img src="./images/icons/right-arrow.png" alt="" />
             </div>
           </div>
         </section>
@@ -42,6 +34,8 @@
               <h1>Realize seu pedido</h1>
             </div>
           </div>
+        </section>
+        <div class="category-search-bar">
           <div class="food-all-wrapper">
             <div class="food-menu-grid">
               <% categorias.sort(function (a, b) { return a.order - b.order; });
@@ -54,20 +48,10 @@
               <% }); %>
             </div>
           </div>
-        </section>
-        <div class="search-bar">
-          <img
-            class="search-img"
-            src="./images/icons/search-icon.png"
-            alt="search-img"
-          />
-          <input
-            type="search"
-            placeholder="Procurar"
-            name="search"
-            id="buscar"
-            onkeyup="buscar()"
-          />
+          <div class="search-bar">
+            <img class="search-img" src="./images/icons/search-icon.png" alt="search-img" />
+            <input type="search" placeholder="Procurar" name="search" id="buscar" onkeyup="buscar()" />
+          </div>
         </div>
         <section>
           <% categorias.forEach((categoria) =>{ %>
@@ -78,28 +62,26 @@
             <% produtos.filter(function(produto,index){ if(produto.categoria ==
             categoria.id) { %>
 
-            <div class="special-item" data-categoria="<%= produto.categoria %>">
-              <div class="thumbnil">
-                <img src="/images/produtos/<%= produto.imagem %>" alt="" />
+            <div class="special-item" data-categoria="<%= produto.categoria %>" onclick="openModal(this)"
+              id="<%= produto.id %>"
+              data-name="<%= produto.nome %>"
+              data-price="<%= produto.preco.toFixed(2) %>">
+              <div class="thumbnil" style="background-image: url('./images/produtos/<%= produto.imagem %>');">
                 <div class="price">R$ <%= produto.preco.toFixed(2) %></div>
               </div>
-              <p class="name-product"><%= produto.nome %></p>
-              <div class="special-item-desc">
-                <img src="./images/icons/star.png" alt="" />
-                <p>4.7</p>
-                <div class="grey-text">
-                  <p><%= produto.descricao %></p>
+              <div>
+                <p class="name-product"><%= produto.nome %></p>
+                <div class="special-item-desc">
+                  <div>
+                    <img src="./images/icons/star.png" alt="" />
+                    <p>4.7</p>
+                  </div>
+                  <div class="grey-text">
+                    <p><%= produto.descricao %></p>
+                  </div>
                 </div>
               </div>
-              <button
-                onclick="openModal(this)"
-                id="<%= produto.id %>"
-                data-name="<%= produto.nome %>"
-                data-price="<%= produto.preco.toFixed(2) %>"
-                class="button-select"
-              >
-                Escolher
-              </button>
+              <button class="button-select" > Escolher </button>
               <div class="overlay">
                 <div class="modal">
                   <header>
@@ -163,8 +145,13 @@
       </div>
       
       <!--page-content-->
+      <a href="#checkout" class="checkout-finish" onclick="showCheckout()">
+        Ver Pedido
+        <img src="./images/icons/shopping-cart.png" alt="user-img" />
+      </a>
       <section class="finish-peidido">
-        <div class="right-section">
+        <div class="right-section" id="checkout">
+          <span onclick="closeCheckout()" class="close-checkout">x</span>
           <div class="side-top">
             <div class="top-menu-right">
               <img src="./images/icons/shopping-cart.png" alt="user-img" />
@@ -262,58 +249,11 @@
     <!-- Socket -->
     <script src="/socket.io/socket.io.js"></script>
 
-    <!-- Scroll categoria -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-
-      //this is where we apply opacity to the arrow
-      $(window).scroll(function () {
-        //get scroll position
-        var topWindow = $(window).scrollTop();
-        //multipl by 1.5 so the arrow will become transparent half-way up the page
-        var topWindow = topWindow * 1.5;
-
-        //get height of window
-        var windowHeight = $(window).height();
-
-        //set position as percentage of how far the user has scrolled
-        var position = topWindow / windowHeight;
-        //invert the percentage
-        position = 1 - position;
-
-        //define arrow opacity as based on how far up the page the user has scrolled
-        //no scrolling = 1, half-way up the page = 0
-        $(".arrow-wrap").css("opacity", position);
-      });
-
-      //Code stolen from css-tricks for smooth scrolling:
-      $(function () {
-        $("a[href*=#]:not([href=#])").click(function () {
-          if (
-            location.pathname.replace(/^\//, "") ==
-              this.pathname.replace(/^\//, "") &&
-            location.hostname == this.hostname
-          ) {
-            var target = $(this.hash);
-            target = target.length
-              ? target
-              : $("[name=" + this.hash.slice(1) + "]");
-            if (target.length) {
-              $("html,body").animate(
-                {
-                  scrollTop: target.offset().top,
-                },
-                1000
-              );
-              return false;
-            }
-          }
-        });
-      });
-    </script>
     <!-- Filtro -->
     <script>
+      const checkoutBottom = document.querySelector(".checkout-finish");
+      const checkoutFinish = document.querySelector('.finish-peidido');
+
       function buscar() {
         var filtro = $("#buscar").val().toUpperCase();
 
@@ -343,7 +283,7 @@
         id: id,
         nome: nome,
         quantidade: 1,
-        valor: 0.00,
+        valor: price,
         observacoes: "",
         complementos: [],
       });
@@ -360,10 +300,16 @@
 
       const socket = io();
 
-      function openModal(e) {
-        console.log(e);
+      function showCheckout(){
+        checkoutFinish.classList.add("active");
+      }
+      function closeCheckout(){
+        checkoutFinish.classList.remove("active");
+      }
 
-        const modal = e.nextElementSibling
+      function openModal(e) {
+
+        const modal = e.lastElementChild;
 
         modal.classList.add("active");
 
@@ -373,13 +319,12 @@
         buttonPrice.innerHTML = e.dataset.price;
         
         item = newProduct(parseInt(e.id), e.dataset.name, parseFloat(e.dataset.price));
-
         modal.querySelectorAll(".group-acompanhamento").forEach(gpa => gpa.dataset.count = 0)
 
         const inputs = modal.getElementsByTagName("input");
         for (var i = 0; i < inputs.length; i++) {
           inputs[i].value = 0;
-          console.log(inputs[i], inputs.length-1)
+          
           if(i == (inputs.length-1)){
             inputs[i].value = 1;
           }
@@ -394,10 +339,15 @@
       }
 
       function closeModal(e) {
-        e.parentNode.parentNode.parentNode.classList.remove("active");
+        console.log(e.parentNode.parentNode.parentNode)
+        setTimeout(()=>{
+          e.parentNode.parentNode.parentNode.classList.remove("active");
+        },100)
       }
 
       function addPedido(e) {
+        checkoutBottom.classList.add('active');
+        
         required = false;
         const modal = e.parentNode.parentNode.parentNode.parentNode;
         const requiredItems = modal.querySelectorAll('[data-obrigatorio=true]');
@@ -424,7 +374,18 @@
         refreshPedidoList();
       }
 
+      function removeItem(e, index){
+        e.parentNode.parentNode.remove();
+        pedido.valorTotal = pedido.valorTotal - parseFloat(e.previousElementSibling.innerHTML)
+        pedido.produtos.splice(index, 1);
+        refreshPedidoList()
+      }
+
       function refreshPedidoList() {
+
+        if(pedido.produtos.length == 0)
+          checkoutBottom.classList.remove('active');
+
         const listPedidos = document.querySelector(".billing-section");
 
         const valorTotal = document.getElementById("valorTotal");
@@ -433,7 +394,7 @@
         const countItensPedidos = document.getElementById("countItensPedido");
         countItensPedidos.innerHTML = pedido.produtos.length;
 
-        let itensPedido = pedido.produtos.map(produto => {
+        let itensPedido = pedido.produtos.map((produto, index) => {
 
           const complementos = produto.complementos.map(item => `
             <div class="group-billing-item">
@@ -454,6 +415,7 @@
 
                 <h3 class="dish-name">${produto.nome}</h3>
                 <span>${produto.valor.toFixed(2)}</span>
+                <span class="icon-remove"onclick="removeItem(this, ${index})"><img src="./images/icons/lixeira-de-reciclagem.png"  rel="remove" /></span>
               </div>
               ${complementos}
             </div>`;
@@ -461,7 +423,7 @@
         }).join("")
         
         let delivery = "";
-        console.log(pedido.entrega.valorEntrega);
+        
         if(pedido.entrega.valorEntrega > 0){
           
           delivery = `
@@ -532,7 +494,51 @@
         formDelivery.style.display = "block";
       }
 
+      function clearForm(){
+        const inputs = document.querySelectorAll("input");
+        const selects = document.querySelectorAll("select");
+        inputs.forEach(field => field.value="");
+        selects.forEach(selectElement => selectElement.selectedIndex = 0)
+        const listPedidos = document.querySelector(".billing-section");
+        listPedidos.innerHTML = "";
+        valorTotal.innerHTML = "0.00"
+      }
+
       function finalizarPedido() {
+        let valido = false;
+        if(pedido.cliente.nome == ""){
+          alert("Campo Nome é Obrigatório")
+          return false
+        }
+        if(pedido.cliente.whatsapp == ""){
+          alert("Campo Whatsapp é Obrigatório")
+          return false
+        }
+        if(pedido.formaPagamento == ""){
+          alert("Campo Forma de pagamento é Obrigatório")
+          return false
+        }
+        if(pedido.produtos.length == 0){
+          alert("Escolha um produto")
+          return false
+        }
+        
+        clearForm();
+
+        pedido.valorTotal= 0.0
+        pedido.trocopara= 0.0
+        pedido.formaPagamento= ""
+        pedido.cliente.nome= ""
+        pedido.cliente.whatsapp= ""
+        pedido.produtos= []
+        pedido.entrega.endereco= ""
+        pedido.entrega.bairro= ""
+        pedido.entrega.complemento= ""
+        pedido.entrega.referencia= ""
+        pedido.entrega.valorEntrega= 0
+        pedido.status= "novo"
+
+        refreshPedidoList();
         socket.emit("pedido", pedido);
       }
 
@@ -642,8 +648,6 @@
         }else{
           maisTodos.forEach(m => m.style.visibility = "visible");
         }
-
-        console.log("Complemento existe?",hasComplemento(iditem))
 
         const itemIndex = hasComplemento(iditem);
 
