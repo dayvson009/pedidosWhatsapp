@@ -1,66 +1,553 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sistema de Pedidos</title>
-  <title>Menu de Almoço</title>
-  <style>
-    #container {
-      max-width: 100%;
-      max-height: 100%;
-      background-color: #E3E3E3;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-    }
-  </style>
-</head>
-<body>
-  <h1>Entrega</h1>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sistema de Pedidos</title>
+    <title>Menu de Almoço</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Lato");
 
-  <div id='container'>
-  </div>
-  
-  
+      * {
+        margin: 0;
+        padding: 0;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Lato;
+        background-color: #E3E3E3;
+      }
+
+      h1 {
+        font-weight: normal;
+        font-size: 40px;
+        font-weight: normal;
+        text-transform: uppercase;
+        float: left;
+        margin: 20px 0 100px 10px;
+      }
+      h1 span {
+        font-size: 13px;
+        display: block;
+        padding-left: 4px;
+      }
+
+      ul{
+        list-style: none;
+      }
+
+      #container {
+        max-width: 100%;
+        max-height: 100%;
+        background-color: #e3e3e3;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+      }
+      #container.hidde {
+        display: none;
+      }
+
+
+      
+
+      .tabs {
+        width: 100%;
+        height: 100vh;
+        max-width: 500px;
+        list-style: none;
+        position: relative;
+        margin: 0 auto;
+        text-align: left;
+        background-color: #fff;
+        border-radius: 20px;
+        border: 2px solid #ccc;
+        display: flex;
+        overflow: hidden;
+      }
+      .tabs .list-tab {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+      }
+      .tabs .input-tabs {
+        position: absolute;
+        top: 0;
+        left: -9999px;
+      }
+      .tabs .label-tabs {
+        display: flex;
+        width: 100%;
+        flex-direction: column-reverse;
+        align-items: center;
+        padding: 6px 21px;
+        font-size: 12px;
+        font-weight: normal;
+        background: #fff;
+        cursor: pointer;
+        position: relative;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        -webkit-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .tabs .label-tabs img{
+        max-width: 20px;
+        margin-bottom: 5px;
+      }
+      .tabs .tab-content {
+        float: left;
+        z-index: 2;
+        display: none;
+        overflow-y: scroll;
+        width: 100%;
+        font-size: 17px;
+        line-height: 25px;
+        padding: 25px 10px;
+        position: absolute;
+        top: 0;
+        bottom: 50px;
+        left: 0;
+        border-bottom: 1px solid #ccc;
+      }
+      .tabs .input-tabs:checked + .label-tabs {
+        color: #fb3b32;
+      }
+      .tabs .input-tabs:checked ~ .tab-content {
+        display: block;
+      }
+
+      p.link {
+        clear: both;
+        margin: 380px 0 0 15px;
+      }
+      p.link a {
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+        color: #fff;
+        padding: 5px 10px;
+        margin: 0 5px;
+        background-color: #612e76;
+        -moz-transition: all 0.2s ease-in;
+        -o-transition: all 0.2s ease-in;
+        -webkit-transition: all 0.2s ease-in;
+        transition: all 0.2s ease-in;
+      }
+      p.link a:hover {
+        background-color: #522764;
+      }
 
 
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    
-    const socket = io();
 
-    // Manipulador de evento para receber o pedido confirmado
-    socket.on('paraentrega', (pedidoentrega) => {
-      console.log('Pedido recebido:', pedidoentrega);
+      ul.list-delivery {
+        display: flex;
+        list-style: none;
+        flex-direction: column;
+      }
+      li.delivery-item {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 5px -6px #000;
+        padding: 10px 0;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .group-item-delivery{
+        display: flex;
+      }
+      .group-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 0;
+      }
+      h2.title-pedido {
+        font-size: 16px;
+      }
+      .date-hour{
+        font-size: 14px;
+        text-align: center;
+      }
+      .group-right {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0 10px 10px;
+        border-left: 1px solid #ddd;
+        margin-left: 5px;
+        width: 100%;
+      }
+      h1.name {
+        font-size: 16px;
+        margin: 0;
+      }
 
-      pedidoentrega.forEach(pedido => {
-        document.body.insertAdjacentHTML('beforeend', `<div>Pedido ${pedido} - Endereço tal. <button id="${pedido}" onclick="finalizado(this)">Entregue</button></div>`)
+      .group-payment {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+      }
+
+      .title{
+        font-size: 14px;
+        color: #888;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .description{
+        font-size: 14px;
+      }
+
+      .button-map img{
+        margin-left: 10px;
+      }
+
+      .button-map{
+        width: 100%;
+        padding: 0px;
+        background-color: #ff6363;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 14px;
+        display: flex;
+        text-align: center;
+        margin-top: 5px;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+      .group-list-pedidos{
+        border-radius: 5px;
+        background-color: #efefef;
+        margin-top: 8px;
+      }
+
+      .list-pedidos-input{
+        display: none;
+      }
+
+      .list-pedidos-label img{
+        height: 12px;
+        margin-right: 10px;
+      }
+
+      .list-pedidos-label{
+        text-align: center;
+        width: 100%;
+        display: block;
+        font-size: 14px;
+        padding: 3px;
+      }
+
+
+      ul.list-pedidos {
+        height: 0;
+        overflow: hidden;
+        color: #555;
+        font-size: 15px;
+      }
+      
+      .list-pedidos-input:checked ~ .list-pedidos{
+        height: auto;
+        padding: 20px 10px 5px 10px;
+      }
+      .list-pedidos li {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed #ccc;
+        padding-top: 5px;
+      }
+
+      .add-delivery{
+        border: none;
+        padding: 6px;
+        margin-top: 8px;
+        background-color: #44bb85;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .add-delivery img{
+        height: 20px;
+        display: inline-block;
+        margin-right: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <section class="content">
+      <ul class="tabs" role="tablist">
+        <li class="list-tab">
+          <input type="radio" name="tabs" class="input-tabs" id="tab1" checked />
+          <label for="tab1" role="tab" aria-selected="true" aria-controls="panel1" tabindex="0" class="label-tabs">
+            Espera 
+            <img src="./images/icons/pending-payment-9-32.png">
+          </label>
+          <div id="tab-content1" class="tab-content" role="tabpanel" aria-labelledby="description" aria-hidden="false" >
+            <ul class="list-delivery">
+              <li class="delivery-item">
+                <div class="group-item-delivery">
+                  <div class="group-left">
+                    <h2 class="title-pedido">#3432</h2>
+                    <div class="date-hour">
+                      <p class="date">23/06/2023</p>
+                      <p class="hour">14:00</p>
+                    </div>
+                  </div>
+                  <div class="group-right">
+                    <h1 class="name">Nome Cliente</h1>
+                    <ul class="group-payment">
+                      <li class="payment-item">
+                        <h3 class="title">F. pagamento</h3>
+                        <p class="description">Dinheiro</p>
+                      </li>
+                      <li class="payment-item">
+                        <h3 class="title">Total</h3>
+                        <p class="description">R$ 35,00</p>
+                      </li>
+                      <li class="payment-item">
+                        <h3 class="title">Troco pra</h3>
+                        <p class="description">R$ 50,00</p>
+                      </li>
+                    </ul>
+                    <p class="title">Endereço</p>
+                    <div>
+                      <p class="description">R. Rio Pajeú, 105 - Ibura, Recife</p>
+                      <a href="https://www.google.com/maps/search/R. Rio Pajeú, 105 - Ibura, Recife/" class="button-map" target="_blank">
+                        Ver no Mapa
+                        <img src="./images/icons/right-arrow.png">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <button class="add-delivery">
+                  <img src="./images/icons/fast-delivery.png">
+                  Adicionar a minhas entregas 
+                </button>
+                <div class="group-list-pedidos">
+                  <input type="checkbox" name="tabs" id="b1" class="list-pedidos-input"/>
+                  <label for="b1" class="list-pedidos-label"> <img src="./images/icons/menu.png"> Itens do pedido </label>
+                  <ul class="list-pedidos">
+                    <li>Refrigerante <b>x1</b></li>
+                    <li>Galinha Cabidela <b>x1</b></li>
+                    <li>Hamburguer <b>x2</b></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="delivery-item">
+                <div class="group-item-delivery">
+                  <div class="group-left">
+                    <h2 class="title-pedido">#3432</h2>
+                    <div class="date-hour">
+                      <p class="date">23/06/2023</p>
+                      <p class="hour">14:00</p>
+                    </div>
+                  </div>
+                  <div class="group-right">
+                    <h1 class="name">Nome Cliente</h1>
+                    <ul class="group-payment">
+                      <li class="payment-item">
+                        <h3 class="title">F. pagamento</h3>
+                        <p class="description">Dinheiro</p>
+                      </li>
+                      <li class="payment-item">
+                        <h3 class="title">Total</h3>
+                        <p class="description">R$ 35,00</p>
+                      </li>
+                      <li class="payment-item">
+                        <h3 class="title">Troco pra</h3>
+                        <p class="description">R$ 50,00</p>
+                      </li>
+                    </ul>
+                    <p class="title">Endereço</p>
+                    <div>
+                      <p class="description">R. Rio Pajeú, 105 - Ibura, Recife</p>
+                      <a href="https://www.google.com/maps/search/R. Rio Pajeú, 105 - Ibura, Recife/" class="button-map" target="_blank">
+                        Ver no Mapa
+                        <img src="./images/icons/right-arrow.png">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <button class="add-delivery">
+                  <img src="./images/icons/fast-delivery.png">
+                  Adicionar a minhas entregas 
+                </button>
+                <div class="group-list-pedidos">
+                  <input type="checkbox" name="tabs" id="b2" class="list-pedidos-input"/>
+                  <label for="b2" class="list-pedidos-label"> <img src="./images/icons/menu.png"> Itens do pedido </label>
+                  <ul class="list-pedidos">
+                    <li>Refrigerante <b>x1</b></li>
+                    <li>Galinha Cabidela <b>x1</b></li>
+                    <li>Hamburguer <b>x2</b></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="list-tab">
+          <input type="radio" name="tabs" class="input-tabs" id="tab2" />
+          <label for="tab2" role="tab" aria-selected="false" aria-controls="panel2" tabindex="0" class="label-tabs">
+            Entregando
+            <img src="./images/icons/fast-delivery.png">
+          </label>
+          <div id="tab-content2" class="tab-content" role="tabpanel" aria-labelledby="specification" aria-hidden="true" >
+            <ul class="list-delivery">
+              <li class="delivery-item">
+                <div class="group-item-delivery">
+                  <div class="group-left">
+                    <h2 class="title-pedido">#3432</h2>
+                    <div class="date-hour">
+                      <p class="date">23/06/2023</p>
+                      <p class="hour">14:00</p>
+                    </div>
+                  </div>
+                  <div class="group-right">
+                    <h1 class="name">Nome Cliente</h1>
+                    <ul class="group-payment">
+                      <li class="payment-item">
+                        <h3 class="title">F. pagamento</h3>
+                        <p class="description">Dinheiro</p>
+                      </li>
+                      <li class="payment-item">
+                        <h3 class="title">Total</h3>
+                        <p class="description">R$ 35,00</p>
+                      </li>
+                      <li class="payment-item">
+                        <h3 class="title">Troco pra</h3>
+                        <p class="description">R$ 50,00</p>
+                      </li>
+                    </ul>
+                    <p class="title">Endereço</p>
+                    <div>
+                      <p class="description">R. Rio Pajeú, 105 - Ibura, Recife</p>
+                      <a href="https://www.google.com/maps/search/R. Rio Pajeú, 105 - Ibura, Recife/" class="button-map" target="_blank">
+                        Ver no Mapa
+                        <img src="./images/icons/right-arrow.png">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <button class="add-delivery">
+                  <img src="./images/icons/finish-2-1-32.png">
+                  Finalizar Entrega
+                </button>
+                <button class="add-delivery">
+                  Cancelar Entrega
+                </button>
+                <div class="group-list-pedidos">
+                  <input type="checkbox" name="tabs" id="be1" class="list-pedidos-input"/>
+                  <label for="be1" class="list-pedidos-label"> <img src="./images/icons/menu.png"> Itens do pedido </label>
+                  <ul class="list-pedidos">
+                    <li>Refrigerante <b>x1</b></li>
+                    <li>Galinha Cabidela <b>x1</b></li>
+                    <li>Hamburguer <b>x2</b></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="list-tab">
+          <input type="radio" name="tabs" class="input-tabs" id="tab3" />
+          <label for="tab3" role="tab" aria-selected="false" aria-controls="panel3" tabindex="0" class="label-tabs">
+            Entregues
+            <img src="./images/icons/finish-2-1-32.png">
+          </label>
+          <div id="tab-content3" class="tab-content" role="tabpanel" aria-labelledby="specification" aria-hidden="true" >
+            <ul class="list-delivery">
+              <li class="delivery-item">
+                <div class="group-item-delivery">
+                  <div class="group-left">
+                    <h2 class="title-pedido">#3432</h2>
+                  </div>
+                  <div class="group-right">
+                    <h1 class="name">Nome ...</h1>
+                    <div class="title">
+                      ENTREGUE
+                      <img src="./images/icons/finish-2-1-32.png" />
+                      <div class="date-hour">
+                        <p class="date">23/06/2023</p>
+                        <p class="hour">14:00</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-list-pedidos">
+                  <input type="checkbox" name="tabs" id="bf1" class="list-pedidos-input"/>
+                  <label for="bf1" class="list-pedidos-label"> <img src="./images/icons/menu.png"> Itens do pedido </label>
+                  <ul class="list-pedidos">
+                    <li>Refrigerante <b>x1</b></li>
+                    <li>Galinha Cabidela <b>x1</b></li>
+                    <li>Hamburguer <b>x2</b></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      // Manipulador de evento para receber o pedido confirmado
+      socket.on("paraentrega", (pedidoentrega) => {
+        console.log("Pedido recebido:", pedidoentrega);
+
+        pedidoentrega.forEach((pedido) => {
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `<div>Pedido ${pedido} - Endereço tal. <button id="${pedido}" onclick="finalizado(this)">Entregue</button></div>`
+          );
+        });
       });
-    });
 
-    // Finalizar pedido
-    function finalizado(e){
-      preparado.push(parseInt(e.id));
-      socket.emit('finalizado', preparado);
-    }
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.4.2/lottie.min.js"></script>
-  <script>
-    var animData = {
-      container: document.getElementById('container'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: 'https://raw.githubusercontent.com/robbdiazz/uianims/master/delivery.json'
-  };
-  var anim = bodymovin.loadAnimation(animData);
+      // Finalizar pedido
+      function finalizado(e) {
+        preparado.push(parseInt(e.id));
+        socket.emit("finalizado", preparado);
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.4.2/lottie.min.js"></script>
+    <script>
+      //   var animData = {
+      //     container: document.getElementById('container'),
+      //     renderer: 'svg',
+      //     loop: true,
+      //     autoplay: true,
+      //     path: 'https://raw.githubusercontent.com/robbdiazz/uianims/master/delivery.json'
+      // };
+      // var anim = bodymovin.loadAnimation(animData);
 
-  setTimeout(()=>anim.destroy(), 2000);
-
-  </script>
-</body>
+      // setTimeout(()=>{
+      //   anim.destroy();
+      //   container.classList.add("hidde")
+      // }, 2000);
+    </script>
+  </body>
 </html>

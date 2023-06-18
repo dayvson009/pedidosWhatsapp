@@ -1,8 +1,13 @@
 * {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
+
 html{
   scroll-behavior: smooth;
 }
@@ -315,6 +320,10 @@ button span {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.group-special-item{
+  width: 100%;
 }
 
 .thumbnil {
@@ -636,11 +645,11 @@ button span {
   display: flex;
   align-items: center;
   background-color: #fcd561;
-  padding: 0px 0 0px 40px;
+  padding: 20px 40px;
   margin-top: 20px;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
-  width: 65%;
+  width: 100%;
   cursor: pointer;
   margin-left: auto;
 }
@@ -845,6 +854,11 @@ button span {
     justify-content: left;
     border-bottom: 1px solid #ccc;
     margin-bottom: 20px;
+  }
+
+  .group-special-item{
+    display: flex;
+    flex-direction: row;
   }
 
   .special-item-desc{
